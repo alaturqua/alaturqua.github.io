@@ -1,0 +1,96 @@
+{
+  "title": "Choose the visual world",
+  "question": "The roll picked Container Terminal. Keep it, take an alternative, or roll again.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Container Terminal",
+      "kicker": "THE ROLL",
+      "lineage": "Deep-water container ports and ISO 6346 box markings: the world Docker, Kubernetes, Helm and Iceberg are literally named after",
+      "thesis": "A data platform is a port: cargo comes in from every source, gets stacked, tracked and shipped on time. Isa runs the terminal.",
+      "palette": ["#e4e1da", "#1d3f8f", "#e2571e", "#8f2a1f", "#2c6b47", "#16181c"],
+      "materials": ["corrugated steel panels", "stencil markings", "bill-of-lading paper", "gantry crane steel"],
+      "viewport": "A daylight quay. A gantry crane lowers corrugated containers onto a stack while the name ISA INALCIK is stencilled on the lead box in a code like ALTQ 2013 7. Below the stack, a manifest strip lists role, location and the LinkedIn and GitHub links.",
+      "risk": "If the crane drops become decoration rather than navigation, the page turns into a themed costume. Every box has to stay a real, clickable project or role.",
+      "raised": [
+        {"from": "Drum machine step row", "raise": "The career runs as one unbroken quay line from 2006 to now, with a running beacon light parked on the present."},
+        {"from": "Emission-line rail", "raise": "Everything registers to one quay edge, an off-centre rail. Nothing floats free of it."},
+        {"from": "Neubrutalist grid", "raise": "Hard-edged boxes on one strict grid, and a door that physically swings open on press."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Lineage DAG",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "dbt docs and Airflow lineage graphs",
+      "thesis": "Career, projects and contributions as one lineage graph that runs green node by node as you scroll.",
+      "palette": ["#0f1115", "#e9ecef", "#3ddc97", "#f5a524"],
+      "materials": ["node-and-edge graph", "run-status pills", "monospace logs"],
+      "viewport": "A dark canvas with the name as the root node and edges fanning out to Allianz, BestSecret, Trino and dbt-hodor, all lighting green.",
+      "risk": "This is where most data-engineer portfolios land: dark, node graph, neon green."
+    },
+    {
+      "id": "challenger-crouwel",
+      "label": "Crouwel grid specimen",
+      "verdict": "competitive",
+      "lineage": "Wim Crouwel gridded type posters",
+      "thesis": "The name built cell by cell on a visible construction grid, so the page proves systematic engineering.",
+      "palette": ["#f4f4f0", "#1a1a1a", "#2b59ff", "#c7d3ff"],
+      "materials": ["construction grid hairlines", "cell-built letterforms"],
+      "viewport": "Monumental ISA INALCIK assembled from grid cells, with the work listed as a catalog below.",
+      "case": "Holds on clarity (systematic, precise) but loses on audience identification, because data people don't see themselves in type specimens.",
+      "risk": "Reads as a designer's portfolio, not an engineer's."
+    },
+    {
+      "id": "challenger-neubrutal",
+      "label": "Neubrutalist grid",
+      "verdict": "declined",
+      "lineage": "award-grade neubrutalist product sites",
+      "thesis": "Hard black borders and offset shadows on a strict grid.",
+      "palette": ["#fffdf5", "#111111", "#ffcc33", "#3a6dff"],
+      "materials": ["heavy outlines", "hard offset shadows"],
+      "viewport": "Bordered cards in clashing solids.",
+      "case": "Clear, but generic: nothing about it says data platforms.",
+      "kept": "Strict grid discipline and a physical press state.",
+      "risk": "Trend-dated."
+    },
+    {
+      "id": "challenger-drum",
+      "label": "Drum machine step row",
+      "verdict": "declined",
+      "lineage": "early-80s rhythm machines",
+      "thesis": "Sixteen step keys under a chase light.",
+      "palette": ["#1c1c1c", "#d7342b", "#f08a24", "#f2c84b"],
+      "materials": ["candy keys", "LED chase light"],
+      "viewport": "A step row as the timeline.",
+      "case": "Fun, but the audience doesn't identify with it and the product isn't music.",
+      "kept": "One unbroken line with a light that always marks now.",
+      "risk": "Novelty."
+    },
+    {
+      "id": "challenger-rail",
+      "label": "Emission-line rail",
+      "verdict": "declined",
+      "lineage": "glass spectrograms",
+      "thesis": "Hairline emission lines on a charcoal continuum.",
+      "palette": ["#2a2b2d", "#e8e4da", "#f2c200"],
+      "materials": ["hairlines", "charcoal bands"],
+      "viewport": "A spectral band with ticks for destinations.",
+      "case": "Too abstract for hiring managers and clients.",
+      "kept": "Everything registers to one off-centre rail.",
+      "risk": "Cold and cryptic."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A clean developer portfolio: photo, headline, project cards, timeline, executed impeccably.",
+    "palette": ["#ffffff", "#111827", "#2563eb"],
+    "materials": ["clean grid", "portrait photo"],
+    "viewport": "Portrait and headline left, links right, project cards below.",
+    "risk": "Looks like every other engineer's page."
+  },
+  "steer": true,
+  "buildPath": {"value": "code", "toggle": false}
+}

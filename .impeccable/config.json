@@ -1,0 +1,22 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-24T15:54:55.442Z",
+        "reason": "Claude: sections carry 72-132px clamp() padding; thumb is a deliberate full-bleed image; .close has 96px+ padding. Detector reads static borders without computed padding."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "grotesk",
+        "createdAt": "2026-10-24T16:43:14.416Z"
+      }
+    ]
+  }
+}

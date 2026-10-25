@@ -1,0 +1,17 @@
+# Tooling caches and scratch output
+.playwright-mcp/
+.impeccable/review/
+.impeccable/questions/
+.impeccable/hook.cache.json
+node_modules/
+*.log
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local design previews
+lab/

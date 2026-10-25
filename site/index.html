@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isa Inalcik · Data Platform Engineering</title>
+<meta name="description" content="Isa Inalcik builds lakehouse data platforms with Databricks, Trino, Iceberg and dbt, and ships open source tools for the people who run them.">
+<link rel="canonical" href="https://isainalcik.dev/">
+<meta name="theme-color" content="#f2f1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151514" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isa Inalcik · Data Platform Engineering">
+<meta property="og:description" content="Lakehouse platforms at scale. Databricks, Trino, Iceberg, dbt. Open source developer.">
+<meta property="og:url" content="https://isainalcik.dev/">
+<meta property="og:image" content="https://isainalcik.dev/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Isa Inalcik, Data Platform Engineering: sources, ingest, tables, engines, serve.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Person", "name": "Isa Inalcik", "url": "https://isainalcik.dev/",
+ "jobTitle": "Senior Technical Lead Engineer, Data Platform",
+ "alumniOf": [{"@type": "CollegeOrUniversity", "name": "FH Aachen"}, {"@type": "CollegeOrUniversity", "name": "Missouri State University"}],
+ "knowsAbout": ["Data platform engineering", "Lakehouse architecture", "Databricks", "Trino", "Apache Iceberg", "dbt", "Kubernetes", "AI solutions"],
+ "sameAs": ["https://www.linkedin.com/in/isainalcik/", "https://github.com/alaturqua"]}
+</script>
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap; src: url(assets/fonts/hanken-grotesk-latin-ext.woff2) format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "Hanken Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap; src: url(assets/fonts/hanken-grotesk-latin.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  :root {
+    --paper: #f2f1ed;
+    --paper-2: #e9e7e1;
+    --ink: #1b1b1a;
+    --ink-2: #4a4a47;
+    --mute: #64645e;
+    --rule: #d3d1ca;
+    --signal: #e2571e;
+    --signal-ink: #b8400f;
+    --on-ink: #f2f1ed;
+    --on-signal: #ffffff;
+    --blue: #2a5fd6;
+    --violet: #7353d1;
+    --rose: #c42f68;
+    --amber: #b87900;
+    --green: #138a5f;
+    --deep: #16328f;
+    --bronze: #a8662f;
+    --silver: #7f8a96;
+    --gold: #c39200;
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    --gutter: clamp(16px, 4vw, 48px);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #151514;
+      --paper-2: #1d1d1b;
+      --ink: #ecebe6;
+      --ink-2: #bdbcb6;
+      --mute: #8f8e88;
+      --rule: #2f2f2c;
+      --signal: #f06a2f;
+      --signal-ink: #f58a5a;
+      --on-ink: #151514;
+      --on-signal: #151514;
+      --blue: #7aa2ff;
+      --violet: #a993f7;
+      --rose: #f27aa6;
+      --amber: #f2b938;
+      --green: #41cf99;
+      --lake-o: .3;
+      --deep: #14245e;
+      --bronze: #d9925a;
+      --silver: #c5cdd6;
+      --gold: #f5cb45;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #151514;
+    --paper-2: #1d1d1b;
+    --ink: #ecebe6;
+    --ink-2: #bdbcb6;
+    --mute: #8f8e88;
+    --rule: #2f2f2c;
+    --signal: #f06a2f;
+    --signal-ink: #f58a5a;
+    --on-ink: #151514;
+    --on-signal: #151514;
+    --blue: #7aa2ff;
+    --violet: #a993f7;
+    --rose: #f27aa6;
+    --amber: #f2b938;
+    --green: #41cf99;
+      --lake-o: .3;
+    --deep: #14245e;
+    --bronze: #d9925a;
+    --silver: #c5cdd6;
+    --gold: #f5cb45;
+    color-scheme: dark;
+  }
+  body, .bar, .node rect, .proj .art, .thumb, .play { transition: background-color .5s var(--ease), color .5s var(--ease), fill .5s var(--ease), border-color .5s var(--ease); }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scrollbar-color: var(--rule) var(--paper); }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px; line-height: 1.6; font-feature-settings: "ss01", "tnum" 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--signal-ink); color: var(--on-signal); }
+  a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+  a:hover { color: var(--signal-ink); }
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 3px; }
+  img { display: block; max-width: 100%; }
+  .num { font-variant-numeric: tabular-nums; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 var(--gutter); }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2.4vw, 32px); }
+
+  /* top bar */
+  .bar { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: saturate(1.2) blur(10px); -webkit-backdrop-filter: saturate(1.2) blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  .bar.scrolled { border-bottom-color: var(--rule); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 24px; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -.01em; text-decoration: none; }
+  .mark img { width: 28px; height: 28px; border-radius: 50%; transition: transform .6s var(--ease); }
+  .mark:hover img { transform: rotate(-12deg); }
+  .bar nav { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 32px); font-size: 15px; }
+  .theme { display: inline-flex; gap: 2px; padding: 3px; margin-left: -6px; border: 1px solid var(--rule); border-radius: 999px; }
+  .theme button { width: 30px; height: 30px; display: grid; place-items: center; border: 0; border-radius: 50%; background: none; color: var(--mute); cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
+  .theme button:hover { color: var(--ink); }
+  .theme button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .theme svg { width: 15px; height: 15px; }
+  .bar nav a { text-decoration: none; color: var(--ink-2); }
+  .bar nav a:hover { color: var(--ink); }
+  .mark, .bar nav a { white-space: nowrap; }
+  @media (max-width: 720px) { .bar nav .opt { display: none; } }
+  @media (max-width: 440px) { .bar nav a[href="#open-source"] { display: none; } }
+
+  /* hero */
+  .hero { padding: clamp(40px, 8vh, 96px) 0 clamp(56px, 9vh, 112px); position: relative; isolation: isolate; overflow: clip; }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; filter: blur(48px); opacity: .55;
+    background: radial-gradient(38% 48% at 72% 32%, color-mix(in srgb, var(--blue) 34%, transparent), transparent 70%),
+                radial-gradient(30% 42% at 88% 72%, color-mix(in srgb, var(--rose) 26%, transparent), transparent 70%),
+                radial-gradient(28% 38% at 56% 82%, color-mix(in srgb, var(--violet) 26%, transparent), transparent 70%),
+                radial-gradient(24% 30% at 18% 18%, color-mix(in srgb, var(--green) 14%, transparent), transparent 70%);
+    animation: aurora 22s ease-in-out infinite alternate; }
+  @keyframes aurora { 50% { transform: translate(-4%, 3%) scale(1.08) rotate(3deg); } 100% { transform: translate(3%, -2%) scale(.96) rotate(-2deg); } }
+  /* Gölcük, Bolu: the lake house behind the hero, faded into the page */
+  .hero-photo { position: absolute; inset: 0 0 0 34%; z-index: -1; pointer-events: none; opacity: var(--lake-o, .36);
+    background: url(assets/img/golcuk-1920.jpg) 50% 52% / cover no-repeat;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 42%), linear-gradient(transparent, #000 18%, #000 66%, transparent);
+    -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 42%), linear-gradient(transparent, #000 18%, #000 66%, transparent); mask-composite: intersect;
+    animation: drift 40s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.08) translateX(-1.5%); } }
+  @media (max-width: 980px) { .hero-photo { inset: 0; background-image: url(assets/img/golcuk-960.jpg); opacity: calc(var(--lake-o, .36) * .7);
+    -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 40%, transparent 75%); mask-image: linear-gradient(transparent, #000 10%, #000 40%, transparent 75%); } }
+  #bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+  .hero .grid { align-items: center; row-gap: 48px; }
+  .hero-copy { grid-column: 1 / span 5; }
+  h1 { position: relative; }
+  /* sized so the ring spans cap top of "Isa" to baseline of "Inalcik" */
+  .seal { position: absolute; top: .04em; left: 3em; width: 1.77em; height: 1.77em; display: grid; place-items: center; }
+  .seal svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: spin 40s linear infinite; }
+  .seal text { font-size: 10px; letter-spacing: .18em; font-weight: 600; fill: var(--ink-2); }
+  .seal tspan { fill: var(--signal); }
+  .seal img { width: 50%; height: 50%; border-radius: 50%; box-shadow: 0 0 0 6px color-mix(in srgb, var(--signal) 18%, transparent); transition: transform .8s var(--ease); }
+  .seal:hover img { transform: rotate(-20deg) scale(1.06); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hero-fig { grid-column: 6 / span 7; }
+  @media (max-width: 980px) { .hero-copy, .hero-fig { grid-column: 1 / -1; } }
+  h1 { font-size: clamp(56px, 8.4vw, 6rem); line-height: .92; letter-spacing: -.04em; font-weight: 600; margin: 0 0 28px; text-wrap: balance; }
+  h1 .ln1 { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+  h1 .ln1 > span { display: inline-block; }
+  .js h1 .ln1 > span { animation: lift 1.1s var(--ease) both; }
+  .js h1 .ln1:nth-child(2) > span { animation-delay: .12s; }
+  @keyframes lift { from { transform: translateY(105%); } to { transform: none; } }
+  h1 .ln1:nth-child(2) > span::after { content: "."; color: var(--signal); }
+  .status { display: flex; flex-direction: column; gap: 12px; margin: 0 0 30px; color: var(--ink); font-size: clamp(16px, 1.3vw, 18px); font-weight: 600; letter-spacing: -.01em; }
+  .status .role { display: flex; align-items: center; gap: 12px; }
+  .status .ico { position: relative; flex: none; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 10px; color: var(--k);
+    border: 1px solid color-mix(in srgb, var(--k) 45%, transparent); background: color-mix(in srgb, var(--k) 12%, var(--paper)); }
+  .status .ico svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  /* connector between the two tiles, with a packet running down it like the diagram */
+  .status .role:first-child .ico::before { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 12px; background: linear-gradient(var(--blue), var(--green)); }
+  .status .role:first-child .ico::after { content: ""; position: absolute; left: calc(50% - 2.5px); top: 100%; width: 5px; height: 5px; border-radius: 50%; background: var(--signal); animation: hop 2.6s var(--ease) infinite; }
+  @keyframes hop { 0% { transform: translateY(-2px); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(9px); opacity: 0; } }
+  .status .sep { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .lede { font-size: clamp(19px, 1.6vw, 22px); line-height: 1.5; color: var(--ink-2); max-width: 34ch; margin: 0 0 36px; text-wrap: pretty; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 999px; font-size: 16px; font-weight: 500; text-decoration: none; border: 1px solid var(--ink); transition: background .25s var(--ease), color .25s var(--ease), transform .25s var(--ease); }
+  .btn svg { width: 18px; height: 18px; }
+  .btn-solid { background: var(--signal-ink); border-color: var(--signal-ink); color: var(--on-signal); }
+  .btn-solid:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  /* brand buttons: LinkedIn blue, GitHub ink (inverted on dark like GitHub's own mark) */
+  .btn-li { --bb: #0a66c2; --bh: #004182; --bt: #fff; }
+  .btn-gh { --bb: #1f2328; --bh: #32383f; --bt: #fff; }
+  :root[data-theme="dark"] .btn-gh { --bb: #f0f6fc; --bh: #d1d9e0; --bt: #1f2328; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn-gh { --bb: #f0f6fc; --bh: #d1d9e0; --bt: #1f2328; } }
+  .btn.btn-li, .btn.btn-gh { background: var(--bb); border-color: var(--bb); color: var(--bt); }
+  .btn.btn-li:hover, .btn.btn-gh:hover { background: var(--bh); border-color: var(--bh); color: var(--bt); }
+  .btn-line:hover { background: var(--ink); color: var(--on-ink); }
+  .btn:active { transform: translateY(1px); }
+
+  .spec { margin: 44px 0 0; border-top: 1px solid var(--rule); }
+  .spec dl { margin: 0; display: contents; }
+  .spec .row { display: grid; grid-template-columns: 84px 1fr; padding: 9px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+  .spec dt { color: var(--mute); }
+  .spec dd { margin: 0; }
+  .chips { list-style: none; margin: -2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips li { display: inline-flex; align-items: center; gap: 7px; padding: 3px 11px 3px 9px; border-radius: 999px; font-size: 13.5px; line-height: 1.5;
+    border: 1px solid color-mix(in srgb, var(--k) 45%, transparent); background: color-mix(in srgb, var(--k) 10%, transparent); }
+  .chips li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--k); }
+
+  /* signature: platform flow */
+  .fig { margin: 0; }
+  .fig-scroll { overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--rule) transparent; }
+  @media (max-width: 640px) { .fig-scroll { -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent); mask-image: linear-gradient(90deg, #000 80%, transparent); padding-bottom: 8px; } }
+  .flow { width: 100%; min-width: 600px; height: auto; display: block; }
+  .flow text { font-family: inherit; fill: var(--ink); font-size: 13px; }
+  .flow .col { fill: var(--mute); font-size: 11px; letter-spacing: .14em; }
+  .flow .node rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1; }
+  .flow .node.hub rect { fill: var(--ink); }
+  .flow .node.hub text { fill: var(--on-ink); font-weight: 600; }
+  .flow .edge { fill: none; stroke: var(--ink); stroke-opacity: .38; stroke-width: 1; }
+  .flow .lake { fill: none; stroke: var(--mute); stroke-dasharray: 3 4; }
+  .flow .lake-label { fill: var(--mute); font-size: 11px; letter-spacing: .02em; }
+  .k0 { --k: var(--blue); } .k1 { --k: var(--violet); } .k2 { --k: var(--amber); } .k3 { --k: var(--green); } .k4 { --k: var(--rose); }
+  .flow .col { fill: color-mix(in srgb, var(--k) 65%, var(--ink)); font-weight: 600; }
+  .flow .node rect { stroke: var(--k); }
+  .flow .node.hub rect { fill: color-mix(in srgb, var(--amber) 16%, var(--paper)); stroke: var(--amber); }
+  .flow .node.hub text { fill: var(--ink); }
+  .flow .edge { stroke: var(--k); stroke-opacity: .5; }
+  .flow .lake { stroke: var(--amber); }
+  .flow .node.xform rect { stroke-width: 1.5; fill: var(--paper); }
+  .flow .node.xform text { font-weight: 600; fill: color-mix(in srgb, var(--k) 70%, var(--ink)); }
+  .flow .pkt { fill: var(--k); }
+  .flow .node.ai rect { stroke: var(--rose); stroke-width: 1.5; fill: color-mix(in srgb, var(--rose) 14%, var(--paper)); }
+  .flow .node.ai text { fill: color-mix(in srgb, var(--rose) 70%, var(--ink)); font-weight: 600; }
+  figcaption { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--mute); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  figcaption b { color: var(--ink-2); font-weight: 500; }
+
+  .js .flow .edge { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .js .flow .node, .js .flow .col, .js .flow .lake, .js .flow .lake-label { opacity: 0; }
+  .js .flow .pkt { opacity: 0; }
+  .flow.on .edge { animation: draw 1.1s var(--ease) forwards; animation-delay: calc(var(--c) * 180ms + 260ms); }
+  .flow.on .node, .flow.on .col, .flow.on .lake, .flow.on .lake-label { animation: rise .8s var(--ease) forwards; animation-delay: calc(var(--c) * 180ms); }
+  .flow.on .pkt { animation: show .4s linear 1.9s forwards; }
+  /* a question runs upstream from a serve node, the answer returns gold */
+  .flow defs text { fill: currentColor; font-size: 9.5px; font-weight: 700; }
+  .flow .edge.hot { stroke: var(--signal); stroke-opacity: 1; stroke-width: 1.8; }
+  .flow .edge.ret { stroke: var(--gold); stroke-opacity: 1; stroke-width: 1.8; }
+  .flow .node rect { transition: stroke-width .3s var(--ease), stroke .3s var(--ease), fill .5s var(--ease); }
+  .flow .node.ping rect { stroke-width: 2.6; }
+  .flow .node.gold rect { stroke: var(--gold); stroke-width: 2.4; fill: color-mix(in srgb, var(--gold) 18%, var(--paper)); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes show { to { opacity: 1; } }
+
+  /* sections */
+  section { padding: clamp(72px, 11vh, 132px) 0; border-top: 1px solid var(--rule); }
+  .sec-head { grid-column: 1 / span 4; }
+  .sec-body { grid-column: 5 / span 8; }
+  @media (max-width: 900px) { .sec-head, .sec-body { grid-column: 1 / -1; } .sec-head { margin-bottom: 36px; } }
+  h2 { font-size: clamp(32px, 3.6vw, 48px); line-height: 1.04; letter-spacing: -.035em; font-weight: 600; margin: 0 0 16px; text-wrap: balance; }
+  .sec-head p { color: var(--ink-2); margin: 0; max-width: 32ch; }
+  h3 { font-size: 24px; letter-spacing: -.02em; font-weight: 600; margin: 0 0 8px; line-height: 1.15; }
+
+  /* expertise */
+  .xp-head { grid-column: 1 / span 7; }
+  .xp-head p { color: var(--ink-2); margin: 0; max-width: 52ch; }
+  @media (max-width: 900px) { .xp-head { grid-column: 1 / -1; } }
+  .xp { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 20px); margin-top: 48px; }
+  @media (max-width: 900px) { .xp { grid-template-columns: 1fr; } }
+  .xp article { padding: clamp(24px, 2.6vw, 36px); background: color-mix(in srgb, var(--k) 11%, var(--paper)); border-top: 2px solid var(--k); transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
+  .xp article:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--k) 60%, transparent); }
+  .xp svg { width: 44px; height: 44px; color: var(--k); margin-bottom: 28px; overflow: visible; }
+  .xp h3 { font-size: 26px; margin-bottom: 10px; }
+  .xp p { margin: 0 0 22px; color: var(--ink-2); }
+  .xp ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .xp li { font-size: 14px; padding: 5px 12px; border-radius: 999px; background: color-mix(in srgb, var(--k) 18%, var(--paper)); }
+  .xp .ring { transform-origin: 22px 22px; animation: spin 14s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .xp .pulse { animation: blink 2.4s ease-in-out infinite; }
+  .xp .flowline { stroke-dasharray: 3 4; animation: dash 1.6s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset: -14; } }
+
+  /* writing */
+  .built { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; }
+  .built li { padding: 24px 0; border-bottom: 1px solid var(--rule); }
+  .built li:nth-child(-n+2) { padding-top: 0; }
+  .built h3 { font-size: 20px; margin: 0 0 6px; display: flex; align-items: center; gap: 10px; }
+  .built h3::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--k); flex: none; }
+  .built p { margin: 0 0 8px; color: var(--ink-2); font-size: 16px; }
+  .built small { font-size: 14px; color: var(--mute); }
+  @media (max-width: 720px) { .built { grid-template-columns: 1fr; } .built li:nth-child(2) { padding-top: 24px; } }
+  .posts { list-style: none; margin: 0; padding: 0; }
+  .posts a { display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--rule); text-decoration: none; transition: padding .5s var(--ease); }
+  .posts li:first-child a { padding-top: 0; }
+  .posts a:hover { padding-left: 10px; color: inherit; }
+  .posts strong { font-size: 19px; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+  .posts a:hover strong { color: var(--k); }
+  .posts span { font-size: 14px; color: var(--mute); white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; }
+  .posts span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--k); }
+  @media (max-width: 560px) { .posts a { grid-template-columns: 1fr; } }
+
+  /* projects */
+  .proj { display: grid; grid-template-columns: 1fr 200px; gap: 32px; align-items: center; padding: 32px 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; }
+  .proj:first-child { padding-top: 0; }
+  .proj p { margin: 0 0 14px; color: var(--ink-2); max-width: 52ch; }
+  .proj .meta { font-size: 14px; color: var(--mute); display: flex; gap: 18px; flex-wrap: wrap; }
+  .proj h3 { display: inline-flex; align-items: center; gap: 10px; }
+  .proj h3 svg { width: 18px; height: 18px; transition: transform .4s var(--ease); }
+  .proj:hover { color: inherit; }
+  .proj:hover h3 { color: var(--signal-ink); }
+  .proj:hover h3 svg { transform: translate(3px, -3px); }
+  .proj .art { width: 200px; height: 120px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper-2); transition: border-color .4s var(--ease); }
+  .proj:hover .art { border-color: var(--pc, var(--signal)); }
+  .art .ln { fill: none; stroke: var(--ink); stroke-width: 1; }
+  .art .soft { stroke-opacity: .35; }
+  .art .dash { stroke-dasharray: 2 3; }
+  .art .fill { fill: var(--ink); }
+  .art .hot { fill: var(--pc, var(--signal)); }
+  .proj:nth-of-type(1) { --pc: var(--amber); }
+  .proj:nth-of-type(2) { --pc: var(--blue); }
+  .proj:nth-of-type(3) { --pc: var(--green); }
+  .proj .art { background: color-mix(in srgb, var(--pc, var(--signal)) 8%, var(--paper-2)); }
+  .art .paper { fill: var(--paper); }
+  @media (max-width: 560px) { .proj { grid-template-columns: 1fr; } .proj .art { order: -1; width: 100%; height: auto; aspect-ratio: 5 / 3; } }
+  .also { margin: 28px 0 0; font-size: 15px; color: var(--mute); }
+  .also a { color: var(--ink-2); }
+
+  @keyframes blink { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
+  .art .b1, .art .b2, .art .b3, .art .b4 { animation: blink 2.4s ease-in-out infinite; }
+  .art .b2 { animation-delay: .6s; } .art .b3 { animation-delay: 1.2s; } .art .b4 { animation-delay: 1.8s; }
+  @keyframes drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(14px, -8px); } }
+  .art .drag { animation: drift 4s var(--ease) infinite; transform-box: fill-box; }
+
+  /* contributions */
+  .contrib { width: 100%; border-collapse: collapse; font-size: 16px; }
+  .contrib th { text-align: left; font-weight: 500; color: var(--mute); font-size: 13px; letter-spacing: .08em; padding: 0 16px 12px 0; border-bottom: 1px solid var(--ink); }
+  .contrib td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .contrib td:first-child { font-weight: 600; white-space: nowrap; width: 1%; }
+  .contrib td:last-child { text-align: right; white-space: nowrap; padding-right: 0; }
+  .contrib td:last-child a { color: var(--mute); text-decoration: none; }
+  .contrib td:last-child a:hover { color: var(--signal-ink); }
+  .contrib tr { transition: background .3s; }
+  .contrib tbody tr:hover { background: var(--paper-2); }
+  @media (max-width: 560px) { .contrib td:first-child { white-space: normal; } .contrib td { font-size: 15px; } }
+
+  /* talk */
+  .talk { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 3vw, 48px); align-items: end; text-decoration: none; color: inherit; }
+  @media (max-width: 760px) { .talk { grid-template-columns: 1fr; } }
+  .thumb { position: relative; overflow: hidden; border-radius: 8px; aspect-ratio: 16 / 9; background: var(--paper-2); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transform: scale(1.02); transition: filter .7s var(--ease), transform .9s var(--ease); }
+  .talk:hover .thumb img { filter: none; transform: scale(1.05); }
+  .play { position: absolute; right: 16px; top: 16px; display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 18px 0 14px; border-radius: 999px; background: var(--paper); color: var(--ink); font-size: 15px; font-weight: 500; box-shadow: 0 6px 24px rgb(0 0 0 / .18); }
+  .play svg { width: 16px; height: 16px; fill: var(--signal); }
+  .talk p { color: var(--ink-2); margin: 0 0 12px; }
+  .talk .meta { font-size: 14px; color: var(--mute); }
+  .talk:hover { color: inherit; }
+  .talk:hover h3 { color: var(--signal-ink); }
+  /* drawn cover for the Starburst TV talk: the real thumbnail carries speaker photos */
+  .tcard { color: #f2f1ed; background: radial-gradient(110% 90% at 88% 0%, color-mix(in srgb, var(--violet) 50%, transparent), transparent 62%), radial-gradient(90% 90% at 0% 100%, color-mix(in srgb, var(--blue) 45%, transparent), transparent 62%), #101117; }
+  .tcard::before { content: ""; position: absolute; inset: 0; background: radial-gradient(rgb(255 255 255 / .13) 1px, transparent 1.6px) 0 0 / 18px 18px; }
+  .tcard-tr { background: radial-gradient(110% 90% at 88% 0%, color-mix(in srgb, var(--rose) 50%, transparent), transparent 62%), radial-gradient(90% 90% at 0% 100%, color-mix(in srgb, var(--amber) 42%, transparent), transparent 62%), #141012; }
+  .tc-in { position: absolute; inset: 0; padding: clamp(18px, 2.6vw, 30px); display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 12px; transition: transform .9s var(--ease); }
+  .talk:hover .tc-in { transform: translateY(-4px); }
+  .tc-show { font-size: 13px; font-weight: 600; color: rgb(255 255 255 / .72); }
+  .tc-title { font-size: clamp(20px, 2.3vw, 32px); line-height: 1.08; letter-spacing: -.02em; font-weight: 600; max-width: 15ch; }
+  .tc-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
+  .tc-flow i { font-style: normal; padding: 3px 11px; border-radius: 999px; border: 1px solid rgb(255 255 255 / .28); }
+  .tc-flow i[class] { border-color: var(--k); background: color-mix(in srgb, var(--k) 28%, transparent); }
+  .tc-flow b { color: var(--signal); font-weight: 600; }
+  .talk + .talk { margin-top: clamp(40px, 5vw, 64px); }
+  .talk ~ .posts { margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--rule); }
+  .talk ~ .posts li:first-child a { padding-top: 20px; }
+
+  /* career */
+  .cv { list-style: none; margin: 0; padding: 0; position: relative; }
+  .cv li { display: grid; grid-template-columns: 128px 1fr; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--rule); position: relative; }
+  .cv li:first-child { padding-top: 0; }
+  .cv .yr { color: var(--mute); font-size: 15px; padding-top: 4px; display: flex; align-items: center; gap: 10px; }
+  .cv .yr i { width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--mute); flex: none; }
+  .cv li.now .yr { color: var(--ink); }
+  .cv li.now .yr i { background: var(--signal); border-color: var(--signal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--signal) 22%, transparent); }
+  .cv h3 { font-size: 20px; margin: 0 0 2px; }
+  .cv .org { color: var(--ink-2); margin: 0 0 6px; }
+  .cv p { margin: 0; color: var(--mute); font-size: 15px; max-width: 60ch; }
+  @media (max-width: 560px) { .cv li { grid-template-columns: 1fr; gap: 6px; } }
+  .certs { margin: 32px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .certs span { font-size: 14px; padding: 6px 14px; border: 1px solid var(--rule); border-radius: 999px; color: var(--ink-2); }
+
+  /* close */
+  .close { padding: clamp(96px, 16vh, 180px) 0 clamp(48px, 8vh, 80px); background: var(--deep); color: #f2f1ed; position: relative; overflow: hidden; }
+  .close::before { content: ""; position: absolute; width: 60vmax; height: 60vmax; right: -18vmax; top: -24vmax; border-radius: 50%; border: 1px solid rgb(255 255 255 / .14); box-shadow: 0 0 0 9vmax rgb(255 255 255 / .035), 0 0 0 18vmax rgb(255 255 255 / .02); animation: breathe 9s ease-in-out infinite; }
+  @keyframes breathe { 50% { transform: scale(1.06); } }
+  .close .wrap { position: relative; }
+  .close h2 span { color: #ffab85; }
+  .close .btn { border-color: #f2f1ed; }
+  .close .btn-solid { background: #f2f1ed; border-color: #f2f1ed; color: #16328f; }
+  .close .btn-solid:hover { background: #ffab85; border-color: #ffab85; color: #16328f; }
+  .close .btn-line { color: #f2f1ed; }
+  .close .btn-line:hover { background: #f2f1ed; color: #16328f; }
+  .close footer, .close footer a { color: rgb(242 241 237 / .75); border-color: rgb(255 255 255 / .18); }
+  .close h2 { font-size: clamp(44px, 7vw, 6rem); line-height: .95; letter-spacing: -.04em; max-width: 14ch; margin-bottom: 40px; }
+  .close-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px clamp(32px, 6vw, 96px); align-items: center; }
+  @media (max-width: 860px) { .close-grid { grid-template-columns: minmax(0, 1fr); } .phone { justify-self: center; } }
+
+  /* the stack texting you: stage colours are the light set, the close is deep blue in both themes */
+  /* iPhone 17 Pro Max-ish: cosmic orange aluminium edge, thin black bezel, Dynamic Island */
+  .phone { position: relative; margin: 0; width: min(280px, 78vw); aspect-ratio: 9 / 19.5; padding: 3px; border-radius: 50px; rotate: -3deg; display: flex; flex-direction: column;
+    background: linear-gradient(135deg, #f0a77e, #c9683d 45%, #e8925f 70%, #a9532e); box-shadow: 0 40px 70px -20px rgb(0 0 0 / .6); }
+  .phone::before, .phone::after { content: ""; position: absolute; width: 3px; border-radius: 2px; background: #b45d35; }
+  .phone::before { right: -3px; top: 27%; height: 13%; }
+  .phone::after { left: -3px; top: 22%; height: 16%; }
+  .phone .screen { position: relative; flex: 1; min-height: 0; border: 7px solid #050507; border-radius: 47px; background: #111633; overflow: hidden; display: flex; flex-direction: column; }
+  .phone .screen::before { content: ""; position: absolute; left: 50%; top: 9px; translate: -50% 0; width: 31%; height: 26px; border-radius: 999px; background: #000; }
+  .phone .sbar { display: flex; justify-content: space-between; align-items: center; height: 44px; padding: 0 22px 0 30px; font-size: 14px; font-weight: 600; color: #f2f1ed; }
+  .phone .sbar svg { display: block; height: 11px; width: auto; fill: currentColor; }
+  .phone .sbar .ic { display: flex; gap: 5px; align-items: center; }
+  .phone .head { padding: 2px 18px 10px; font-weight: 600; font-size: 20px; letter-spacing: -.02em; border-bottom: 1px solid rgb(255 255 255 / .1); }
+  .phone .head small { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0; color: rgb(242 241 237 / .55); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .msg .b { position: relative; }
+  .msg .react { position: absolute; right: -6px; bottom: -10px; padding: 1px 5px; border-radius: 999px; background: #2e3766; box-shadow: 0 0 0 2px #111633; font-size: 12px; animation: msg-in .3s .5s var(--ease) both; }
+  .msg.me .react { right: auto; left: -6px; }
+  .msgs { gap: 12px; }
+  .msgs { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 12px; overflow: hidden; }
+  .msg { display: flex; gap: 8px; align-items: flex-end; animation: msg-in .35s var(--ease); }
+  .msg .av { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #111633; background: var(--c); }
+  .msg .b { background: #222a52; border-radius: 16px 16px 16px 4px; padding: 7px 11px; font-size: 14px; line-height: 1.35; max-width: 80%; }
+  .msg .b small { display: block; font-size: 11px; font-weight: 700; color: var(--c); }
+  .msg.me { flex-direction: row-reverse; }
+  .msg.me .b { background: #ffab85; color: #111633; border-radius: 16px 16px 4px 16px; }
+  .msg.typing .b { display: flex; gap: 4px; padding: 11px 12px; }
+  .msg.typing .b i { width: 6px; height: 6px; border-radius: 50%; background: rgb(242 241 237 / .7); animation: dots 1s infinite; }
+  .msg.typing .b i:nth-child(2) { animation-delay: .15s; } .msg.typing .b i:nth-child(3) { animation-delay: .3s; }
+  @keyframes dots { 50% { opacity: .25; } }
+  @keyframes msg-in { from { opacity: 0; transform: translateY(10px) scale(.96); } }
+  footer { margin-top: clamp(80px, 12vh, 140px); padding-top: 20px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--mute); }
+  footer a { color: var(--mute); }
+
+  /* scroll reveal: content is visible by default; only enhanced when JS runs */
+  .js .rv { opacity: 0; transform: translateY(14px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .js .rv.in { opacity: 1; transform: none; }
+
+  /* lineage trace in the hero diagram */
+  .flow .node { cursor: pointer; outline: none; }
+  .flow .node > *, .flow .edge { transition: opacity .35s var(--ease), stroke-width .35s var(--ease); }
+  .flow.trace .edge:not(.lit) { opacity: .08; }
+  .flow.trace .edge.lit { stroke-opacity: 1; stroke-width: 1.75; }
+  .flow.trace .node:not(.lit) > * { opacity: .25; }
+  .flow.trace .pkt:not(.lit) { visibility: hidden; }
+  .flow .node.src rect, .flow .node:focus-visible rect { stroke-width: 2.25; }
+  figcaption .hint { display: none; }
+  .js figcaption .hint { display: inline; }
+
+  /* theme switch: circular reveal from the pressed button */
+  .vt, .vt * { transition: none !important; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+  ::view-transition-new(root) { animation: reveal .7s var(--ease); }
+  @keyframes reveal { from { clip-path: circle(0 at var(--vx) var(--vy)); } to { clip-path: circle(var(--vr) at var(--vx) var(--vy)); } }
+
+  /* career line that draws while scrolling */
+  .cv::before, .cv::after { content: ""; position: absolute; left: 3px; top: 10px; bottom: 30px; width: 1px; background: var(--rule); }
+  .cv::after { background: var(--ink-2); transform-origin: top; transform: scaleY(0); }
+  .cv .yr i { position: relative; z-index: 1; background: var(--paper); }
+  @supports (animation-timeline: view()) {
+    .cv::after { animation: grow linear both; animation-timeline: view(); animation-range: entry 25% cover 70%; }
+    .cv li:not(.now) .yr i { animation: lamp linear both; animation-timeline: view(); animation-range: entry 70% cover 40%; }
+  }
+  @keyframes grow { to { transform: scaleY(1); } }
+  @keyframes lamp { to { background: var(--ink-2); border-color: var(--ink-2); } }
+
+  /* case-study details in "What I've built" */
+  :root { interpolate-size: allow-keywords; }
+  .built details { margin-top: 12px; }
+  .built summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--ink-2); }
+  .built summary::-webkit-details-marker { display: none; }
+  .built summary::before { content: ""; width: 9px; height: 9px; background: linear-gradient(var(--k), var(--k)) center / 9px 1.5px no-repeat, linear-gradient(var(--k), var(--k)) center / 1.5px 9px no-repeat; transition: transform .45s var(--ease); }
+  .built details[open] summary::before { transform: rotate(45deg); }
+  .built summary:hover { color: var(--ink); }
+  .built details > div { padding-top: 10px; font-size: 15px; color: var(--ink-2); max-width: 60ch; }
+  .built details > div p { margin: 0 0 8px; color: inherit; font-size: inherit; }
+  .built details a { text-decoration-color: var(--k); text-underline-offset: 3px; }
+  .built details::details-content { block-size: 0; overflow: clip; transition: block-size .45s var(--ease), content-visibility .45s allow-discrete; }
+  .built details[open]::details-content { block-size: auto; }
+
+  /* live GitHub numbers */
+  .stars b, [data-gh] { font-weight: inherit; font-variant-numeric: tabular-nums; }
+
+  /* off the clock: a mountain pass that draws while scrolling */
+  .off { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: center; }
+  .off svg { width: 200px; height: 100px; overflow: visible; }
+  .off .peak { fill: none; stroke: var(--rule); stroke-width: 1; }
+  .off .lake { fill: color-mix(in srgb, var(--blue) 18%, transparent); stroke: var(--blue); stroke-width: 1; }
+  .off .house { fill: none; stroke: var(--ink-2); stroke-width: 1.25; stroke-linejoin: round; }
+  .off .pass { fill: none; stroke: var(--signal); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+  .off p { margin: 0; color: var(--ink-2); max-width: 52ch; }
+  .off b { color: var(--ink); font-weight: 600; }
+  @supports (animation-timeline: view()) {
+    .off .pass { animation: ride linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
+  }
+  @keyframes ride { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @media (max-width: 520px) { .off { grid-template-columns: 1fr; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-photo, .seal svg { animation: none; }
+    .status .role .ico::after { display: none; }
+    .off .pass { animation: none; }
+    .cv::after { transform: none; }
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .rv, .js .flow .node, .js .flow .col, .js .flow .lake, .js .flow .lake-label { opacity: 1; transform: none; }
+    .js .flow .edge { stroke-dashoffset: 0; }
+    .flow .pkt { display: none; }
+  }
+</style>
+</head>
+<body id="top">
+<script>
+  document.documentElement.classList.add('js');
+  try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Isa Inalcik, back to top"><img src="assets/logo.svg" width="28" height="28" alt="">Isa Inalcik</a>
+    <nav aria-label="Sections">
+      <a class="opt" href="#expertise">Expertise</a>
+      <a class="opt" href="#built">Work</a>
+      <a href="#open-source">Open source</a>
+      <a class="opt" href="#writing">Writing</a>
+      <a class="opt" href="#career">Career</a>
+      <a href="#contact">Connect</a>
+      <div class="theme" role="group" aria-label="Colour theme">
+        <button type="button" data-t="system" aria-label="Use system theme" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button>
+        <button type="button" data-t="light" aria-label="Use light theme" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg></button>
+        <button type="button" data-t="dark" aria-label="Use dark theme" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-photo" aria-hidden="true"></div>
+    <div class="wrap grid">
+      <div class="hero-copy">
+        <h1><span class="ln1"><span>Isa</span></span><span class="ln1"><span>Inalcik</span></span><span class="seal" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><path id="seal-ring" fill="none" d="M60 60 m-48 0 a48 48 0 1 1 96 0 a48 48 0 1 1 -96 0"/><text><textPath href="#seal-ring">DATA PLATFORM<tspan> • </tspan>DEVOPS<tspan> • </tspan>OPEN SOURCE<tspan> • </tspan>AI<tspan> • </tspan></textPath></text></svg>
+          <img src="assets/logo.svg" width="60" height="60" alt="">
+        </span></h1>
+        <p class="status"><span class="role k0"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 3 7.5 12 12l9-4.5L12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg></span>Senior data platform architect</span><span class="sep">, </span><span class="role k3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10M18 9v1a5 5 0 0 1-5 5H6"/></svg></span>Open source developer</span></p>
+        <p class="lede">I design and build <strong>lakehouse platforms</strong> that move data reliably at scale, and ship <strong>open source tools</strong> for the people who run them.</p>
+        <div class="actions">
+          <a class="btn btn-solid btn-li" href="https://www.linkedin.com/in/isainalcik/">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn btn-line btn-gh" href="https://github.com/alaturqua">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+        <div class="spec">
+          <dl>
+            <div class="row"><dt>Focus</dt><dd><ul class="chips"><li class="k0">Lakehouse platforms</li><li class="k1">Ingestion</li><li class="k2">Transformation</li><li class="k1">Orchestration</li><li class="k2">Modelling &amp; governance</li><li class="k3">DevOps &amp; CI/CD</li><li class="k4">AI on data</li></ul></dd></div>
+            <div class="row"><dt>In data</dt><dd class="num">Since 2011</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <figure class="hero-fig fig">
+        <div class="fig-scroll">
+          <svg class="flow" id="flow" viewBox="0 0 720 352" role="img" aria-labelledby="flow-title flow-desc">
+            <title id="flow-title">A lakehouse data platform</title>
+            <desc id="flow-desc">Structured and unstructured data flows from Kafka, databases, REST APIs, files and documents through dltHub and Spark, orchestrated by Airflow, into Iceberg and Delta Lake tables, transformed with dbt from bronze to gold, queried by Trino, Databricks, Snowflake and BigQuery, and served to Power BI, Looker, notebooks and AI solutions.</desc>
+            <g class="cols">
+              <text class="col" x="0" y="20" style="--c:0">SOURCES</text>
+              <text class="col" x="154" y="20" style="--c:1">INGEST</text>
+              <text class="col" x="308" y="20" style="--c:2">TABLES</text>
+              <text class="col" x="462" y="20" style="--c:3">ENGINES</text>
+              <text class="col" x="616" y="20" style="--c:4">SERVE</text>
+            </g>
+            <g>
+              <path id="e1" class="edge" pathLength="1" style="--c:0" d="M104 78 C134 78 124 253 154 253"/>
+              <path id="e2" class="edge" pathLength="1" style="--c:0" d="M104 148 C134 148 124 113 154 113"/>
+              <path id="e3" class="edge" pathLength="1" style="--c:0" d="M104 218 C134 218 124 113 154 113"/>
+              <path id="e4" class="edge" pathLength="1" style="--c:0" d="M104 288 C134 288 124 253 154 253"/>
+              <path id="e5" class="edge" pathLength="1" style="--c:1" d="M258 113 C288 113 278 128 308 128"/>
+              <path id="e6" class="edge" pathLength="1" style="--c:1" d="M258 113 C288 113 278 238 308 238"/>
+              <path id="e7" class="edge" pathLength="1" style="--c:1" d="M258 253 C288 253 278 238 308 238"/>
+              <path id="e8" class="edge" pathLength="1" style="--c:1" d="M258 253 C288 253 278 128 308 128"/>
+              <path id="e9" class="edge" pathLength="1" style="--c:2" d="M412 128 C442 128 432 88 462 88"/>
+              <path id="e10" class="edge" pathLength="1" style="--c:2" d="M412 238 C442 238 432 158 462 158"/>
+              <path id="e11" class="edge" pathLength="1" style="--c:2" d="M412 238 C442 238 432 88 462 88"/>
+              <path id="e12" class="edge" pathLength="1" style="--c:2" d="M412 128 C442 128 432 228 462 228"/>
+              <path id="e13" class="edge" pathLength="1" style="--c:2" d="M412 128 C442 128 432 298 462 298"/>
+              <path id="e14" class="edge" pathLength="1" style="--c:3" d="M566 88 C580 88 581 156.5 591 156.5 C601 156.5 602 78 616 78"/>
+              <path id="e15" class="edge" pathLength="1" style="--c:3" d="M566 228 C580 228 581 177.5 591 177.5 C601 177.5 602 78 616 78"/>
+              <path id="e16" class="edge" pathLength="1" style="--c:3" d="M566 158 C580 158 581 188.0 591 188.0 C601 188.0 602 218 616 218"/>
+              <path id="e17" class="edge" pathLength="1" style="--c:3" d="M566 298 C580 298 581 198.5 591 198.5 C601 198.5 602 148 616 148"/>
+              <path id="e18" class="edge" pathLength="1" style="--c:3" d="M566 88 C580 88 581 188.0 591 188.0 C601 188.0 602 288 616 288"/>
+              <path id="e19" class="edge" pathLength="1" style="--c:3" d="M566 158 C580 158 581 198.5 591 198.5 C601 198.5 602 288 616 288"/>
+              <path id="e20" class="edge" pathLength="1" style="--c:2" d="M360 165 L360 146"/>
+              <path id="e21" class="edge" pathLength="1" style="--c:2" d="M360 201 L360 220"/>
+              <path id="e22" class="edge" pathLength="1" style="--c:1" d="M206 165 L206 131"/>
+              <path id="e23" class="edge" pathLength="1" style="--c:1" d="M206 201 L206 235"/>
+              <path id="e24" class="edge" pathLength="1" style="--c:3" d="M566 158 C580 158 581 167.0 591 167.0 C601 167.0 602 78 616 78"/>
+              <path id="e25" class="edge" pathLength="1" style="--c:3" d="M566 298 C580 298 581 188.0 591 188.0 C601 188.0 602 78 616 78"/>
+              <path id="e26" class="edge" pathLength="1" style="--c:3" d="M566 88 C580 88 581 167.0 591 167.0 C601 167.0 602 148 616 148"/>
+              <path id="e27" class="edge" pathLength="1" style="--c:3" d="M566 158 C580 158 581 177.5 591 177.5 C601 177.5 602 148 616 148"/>
+              <path id="e28" class="edge" pathLength="1" style="--c:3" d="M566 228 C580 228 581 188.0 591 188.0 C601 188.0 602 148 616 148"/>
+              <path id="e29" class="edge" pathLength="1" style="--c:3" d="M566 88 C580 88 581 177.5 591 177.5 C601 177.5 602 218 616 218"/>
+              <path id="e30" class="edge" pathLength="1" style="--c:3" d="M566 228 C580 228 581 198.5 591 198.5 C601 198.5 602 218 616 218"/>
+              <path id="e31" class="edge" pathLength="1" style="--c:3" d="M566 298 C580 298 581 209.0 591 209.0 C601 209.0 602 218 616 218"/>
+              <path id="e32" class="edge" pathLength="1" style="--c:3" d="M566 228 C580 228 581 209.0 591 209.0 C601 209.0 602 288 616 288"/>
+              <path id="e33" class="edge" pathLength="1" style="--c:3" d="M566 298 C580 298 581 219.5 591 219.5 C601 219.5 602 288 616 288"/>
+            </g>
+            <rect class="lake" x="296" y="84" width="128" height="200" rx="8" style="--c:2"/>
+            <text class="lake-label" x="360" y="306" text-anchor="middle" style="--c:2">bronze → silver → gold</text>
+            <g class="node" style="--c:0"><rect x="0" y="60" width="104" height="36" rx="5"/><text x="52" y="83" text-anchor="middle">Kafka</text></g>
+            <g class="node" style="--c:0"><rect x="0" y="130" width="104" height="36" rx="5"/><text x="52" y="153" text-anchor="middle">Databases</text></g>
+            <g class="node" style="--c:0"><rect x="0" y="200" width="104" height="36" rx="5"/><text x="52" y="223" text-anchor="middle">REST APIs</text></g>
+            <g class="node" style="--c:0"><rect x="0" y="270" width="104" height="36" rx="5"/><text x="52" y="293" text-anchor="middle">Files &amp; docs</text></g>
+            <g class="node" style="--c:1"><rect x="154" y="95" width="104" height="36" rx="5"/><text x="206" y="118" text-anchor="middle">dltHub</text></g>
+            <g class="node xform" style="--c:1"><rect x="154" y="165" width="104" height="36" rx="5"/><text x="206" y="188" text-anchor="middle">Airflow</text></g>
+            <g class="node" style="--c:1"><rect x="154" y="235" width="104" height="36" rx="5"/><text x="206" y="258" text-anchor="middle">Spark</text></g>
+            <g class="node hub" style="--c:2"><rect x="308" y="110" width="104" height="36" rx="5"/><text x="360" y="133" text-anchor="middle">Iceberg</text></g>
+            <g class="node hub" style="--c:2"><rect x="308" y="220" width="104" height="36" rx="5"/><text x="360" y="243" text-anchor="middle">Delta Lake</text></g>
+            <g class="node xform" style="--c:2"><rect x="308" y="165" width="104" height="36" rx="5"/><text x="360" y="188" text-anchor="middle">dbt</text></g>
+            <g class="node" style="--c:3"><rect x="462" y="70" width="104" height="36" rx="5"/><text x="514" y="93" text-anchor="middle">Trino</text></g>
+            <g class="node" style="--c:3"><rect x="462" y="140" width="104" height="36" rx="5"/><text x="514" y="163" text-anchor="middle">Databricks</text></g>
+            <g class="node" style="--c:3"><rect x="462" y="210" width="104" height="36" rx="5"/><text x="514" y="233" text-anchor="middle">Snowflake</text></g>
+            <g class="node" style="--c:3"><rect x="462" y="280" width="104" height="36" rx="5"/><text x="514" y="303" text-anchor="middle">BigQuery</text></g>
+            <g class="node" style="--c:4"><rect x="616" y="60" width="104" height="36" rx="5"/><text x="668" y="83" text-anchor="middle">Power BI</text></g>
+            <g class="node" style="--c:4"><rect x="616" y="130" width="104" height="36" rx="5"/><text x="668" y="153" text-anchor="middle">Looker</text></g>
+            <g class="node" style="--c:4"><rect x="616" y="200" width="104" height="36" rx="5"/><text x="668" y="223" text-anchor="middle">Notebooks</text></g>
+            <g class="node ai" style="--c:4"><rect x="616" y="270" width="104" height="36" rx="5"/><text x="668" y="293" text-anchor="middle">AI solutions</text></g>
+            <defs aria-hidden="true">
+              <g id="gl-event"><path fill="currentColor" d="M1-5-3.5 1H0l-1 4 4.5-6H0z"/></g>
+              <g id="gl-row"><path fill="currentColor" d="M-4-3v6a4 1.6 0 0 0 8 0v-6a4 1.6 0 0 0-8 0z"/><path fill="none" style="stroke:var(--paper)" stroke-width=".8" d="M-4-1.6a4 1.6 0 0 0 8 0M-4 1a4 1.6 0 0 0 8 0"/></g>
+              <g id="gl-json"><text fill="currentColor" y="3" text-anchor="middle" font-size="9.5" font-weight="700">{}</text></g>
+              <g id="gl-doc"><path fill="currentColor" d="M-3.5-5h4.5l2.5 2.5V5h-7z"/><path style="stroke:var(--paper)" stroke-width=".9" d="M-2-.4h4M-2 1.9h4"/></g>
+              <g id="gl-table"><rect fill="currentColor" x="-4.5" y="-3.5" width="9" height="7" rx="1"/><path style="stroke:var(--paper)" stroke-width=".8" d="M-4.5-1h9M-4.5 1.3h9M-1.5-1v4.5M1.5-1v4.5"/></g>
+              <g id="gl-chart"><path fill="currentColor" d="M-4.5 4.5V0h2.4v4.5zM-1.2 4.5v-8h2.4v8zM2.1 4.5V-1.5h2.4v6z"/></g>
+              <g id="gl-spark"><path fill="currentColor" d="M0-5.5 1.3-1.3 5.5 0 1.3 1.3 0 5.5-1.3 1.3-5.5 0-1.3-1.3z"/></g>
+            </defs>
+            <g id="pkts" aria-hidden="true"></g>
+          </svg>
+        </div>
+        <figcaption><span><b>The stack I build on.</b> Structured and unstructured sources to serving, one governed lakehouse. <span class="hint">Point at any node to trace its path.</span></span><span>Azure · Kubernetes</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section id="expertise">
+    <div class="wrap grid">
+      <div class="xp-head rv">
+        <h2>What I bring</h2>
+        <p>Platform architecture across the major engines, AI that works on real company data, and delivery pipelines that make both safe to change.</p>
+      </div>
+      <div class="xp">
+        <article class="k0 rv">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><ellipse cx="22" cy="10" rx="14" ry="5"/><path d="M8 10v24c0 2.8 6.3 5 14 5s14-2.2 14-5V10"/><path d="M8 22c0 2.8 6.3 5 14 5s14-2.2 14-5"/><circle class="pulse" cx="22" cy="10" r="2" fill="currentColor"/></svg>
+          <h3>Data platforms</h3>
+          <p>Lakehouse and warehouse architecture, migrations off legacy systems, governance built in from day one.</p>
+          <ul><li>Databricks</li><li>Trino · Starburst</li><li>Snowflake</li><li>BigQuery</li><li>Apache Iceberg</li><li>Delta Lake</li><li>Spark</li><li>dbt</li><li>Power BI</li><li>Looker</li></ul>
+        </article>
+        <article class="k4 rv">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle class="ring" cx="22" cy="22" r="19" stroke-dasharray="4 5"/><path d="M22 10l2.8 8.2L33 21l-8.2 2.8L22 32l-2.8-8.2L11 21l8.2-2.8z" fill="currentColor" fill-opacity=".2"/></svg>
+          <h3>AI solutions</h3>
+          <p>LLMs connected to governed data: AI functions in SQL, MCP servers for agents, and agentic frameworks that speed up migrations.</p>
+          <ul><li>LLM functions in Trino</li><li>MCP servers</li><li>Agentic migration</li><li>Claude Code tooling</li><li>Agents &amp; skills</li></ul>
+        </article>
+        <article class="k3 rv">
+          <svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="22" r="4"/><circle cx="36" cy="11" r="4"/><circle cx="36" cy="33" r="4"/><path class="flowline" d="M12 22h8c5 0 5-11 12-11M20 22c5 0 5 11 12 11"/></svg>
+          <h3>DevOps &amp; CI/CD</h3>
+          <p>Everything as code and tested before it ships: PR-scoped environments, slim builds, autoscaling clusters and repeatable releases to Kubernetes.</p>
+          <ul><li>Kubernetes</li><li>Helm</li><li>KEDA</li><li>Docker</li><li>GitHub Actions</li><li>GitLab CI</li><li>Azure DevOps</li><li>dbt Slim CI</li><li>OpenTelemetry</li><li>Open Policy Agent</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="built">
+    <div class="wrap grid">
+      <div class="sec-head rv">
+        <h2>What I’ve built</h2>
+        <p>A selection from platform work at Allianz Partners and BestSecret.</p>
+      </div>
+      <div class="sec-body">
+        <ul class="built">
+          <li class="k0 rv"><h3>Data platforms from scratch</h3><p>New company data platforms, on Databricks and on Starburst/Trino with Apache Iceberg.</p><small>Allianz Partners · BestSecret</small><details><summary>More</summary><div><p><b>BestSecret:</b> a Trino/Starburst and Apache Iceberg lakehouse on Azure, the migration off legacy platforms, ETL on dbt and Airflow, and Trino clusters autoscaled with KEDA on Kubernetes (<a href="https://medium.com/bestsecret-tech/maximize-performance-the-bestsecret-to-scaling-trino-clusters-with-keda-c209efe4a081">write-up</a>).</p><p><b>Allianz Partners:</b> a Databricks lakehouse with dltHub ingestion and dbt transformation, plus agentic tooling to speed up the Oracle to Databricks migration.</p></div></details></li>
+          <li class="k0 rv"><h3>Governed data exports</h3><p>A Databricks App that lets teams create controlled data exports instead of ad hoc extracts.</p><small>Allianz Partners</small><details><summary>More</summary><div><p>Teams need data outside the platform. Instead of one-off extracts, exports are created through an app that runs inside Databricks, so every export takes one controlled path.</p></div></details></li>
+          <li class="k0 rv"><h3>Access permission concepts</h3><p>Role and policy based access models for Starburst and Databricks.</p><small>Allianz Partners · BestSecret</small><details><summary>More</summary><div><p>Role and policy based access models for Starburst and Databricks. Related writing: <a href="https://www.linkedin.com/pulse/enhancing-security-observability-trino-open-policy-agent-isa-inalcik-zhl9e/">Trino with Open Policy Agent and OpenTelemetry</a>.</p></div></details></li>
+          <li class="k3 rv"><h3>dbt Slim CI</h3><p>Pull request builds that run and test only the models that changed.</p><small>dbt · Databricks</small><details><summary>More</summary><div><p>Pull request runs compare against the production manifest and build only modified models and what depends on them (<code>state:modified+</code>), so CI stays fast as the project grows. Write-up: <a href="https://www.linkedin.com/pulse/dbt-core-slim-ci-databricks-how-stop-rebuilding-every-isa-inalcik-1ffgf/">dbt Core and Slim CI on Databricks</a>. Related open source: <a href="https://github.com/alaturqua/dbt-hodor">dbt-hodor</a>.</p></div></details></li>
+          <li class="k1 rv"><h3>dltHub ingestion framework</h3><p>A reusable ingestion framework on dlt for bringing new sources into the lakehouse.</p><small>Allianz Partners</small><details><summary>More</summary><div><p>Ingestion on dlt (dltHub) that brings sources into the Databricks lakehouse at Allianz Partners, with dbt handling transformation downstream.</p></div></details></li>
+          <li class="k4 rv"><h3>AI functions for Trino</h3><p>A Trino/Starburst plugin that exposes LLM calls as SQL functions, shown on Trino Community Broadcast 60.</p><small>Open source · trino-ai</small><details><summary>More</summary><div><p>LLM calls exposed as SQL functions in Trino/Starburst, so models can be used from plain SQL. Code: <a href="https://github.com/alaturqua/trino-ai">trino-ai</a>. Demo: <a href="https://www.linkedin.com/posts/isainalcik_trino-trino-llama3-ugcPost-7187269264335097856-ABBq/">Trino with Llama 3 on LinkedIn</a> and <a href="https://trino.io/episodes/60.html">Trino Community Broadcast 60</a>.</p></div></details></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="open-source">
+    <div class="wrap grid">
+      <div class="sec-head rv">
+        <h2>Open source</h2>
+        <p>Tools I built because the platform work needed them. Free, self-hostable, Apache-licensed.</p>
+      </div>
+      <div class="sec-body">
+        <a class="proj rv" href="https://github.com/alaturqua/mcp-trino-python">
+          <div>
+            <h3>mcp-trino-python <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></h3>
+            <p>An MCP server for Trino, built on the MCP Python SDK, so AI assistants can explore catalogs and query data through Trino.</p>
+            <div class="meta"><span>Python</span><span>MCP</span><span>Apache 2.0</span><span class="stars" data-repo="mcp-trino-python"><span aria-hidden="true">★ </span><b>25</b><span class="sr"> GitHub stars</span></span></div>
+          </div>
+          <svg class="art" viewBox="0 0 200 120" aria-hidden="true">
+            <rect class="ln paper" x="18" y="34" width="54" height="34" rx="10"/>
+            <path class="ln paper" d="M30 68 L26 80 L42 68"/>
+            <g class="ln soft"><path d="M30 46 H60 M30 56 H52"/></g>
+            <path class="ln soft" d="M72 51 H128"/>
+            <circle class="hot b1" cx="88" cy="51" r="3.5"/>
+            <circle class="hot b2" cx="100" cy="51" r="3.5"/>
+            <circle class="hot b3" cx="112" cy="51" r="3.5"/>
+            <ellipse class="ln paper" cx="156" cy="32" rx="26" ry="8"/>
+            <path class="ln paper" d="M130 32 V84 A26 8 0 0 0 182 84 V32"/>
+            <path class="ln soft" d="M130 50 A26 8 0 0 0 182 50 M130 67 A26 8 0 0 0 182 67"/>
+          </svg>
+        </a>
+        <a class="proj rv" href="https://github.com/alaturqua/iceberg-metadata-insights">
+          <div>
+            <h3>iceberg-metadata-insights <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></h3>
+            <p>A Streamlit app on Trino that shows what sits below the waterline of Apache Iceberg tables: snapshots, files, partitions and manifests, with maintenance actions one click away.</p>
+            <div class="meta"><span>Python</span><span>Streamlit · Trino</span><span>GPL 3.0</span><span class="stars" data-repo="iceberg-metadata-insights"><span aria-hidden="true">★ </span><b>17</b><span class="sr"> GitHub stars</span></span></div>
+          </div>
+          <svg class="art" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="ln paper" d="M78 44 L96 18 L108 30 L122 44"/>
+            <path class="ln soft" d="M14 44 H186"/>
+            <path class="ln soft" d="M78 44 L58 70 L72 98 L112 108 L146 86 L138 60 L122 44"/>
+            <circle class="hot b1" cx="84" cy="62" r="3.5"/>
+            <circle class="hot b2" cx="104" cy="76" r="3.5"/>
+            <circle class="hot b3" cx="124" cy="66" r="3.5"/>
+            <circle class="hot b4" cx="98" cy="96" r="3.5"/>
+          </svg>
+        </a>
+        <a class="proj rv" href="https://github.com/alaturqua/dbt-hodor">
+          <div>
+            <h3>dbt-hodor <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></h3>
+            <p>Reuse unchanged dbt nodes and rebuild only when code or upstream data changed. A free, self-hosted alternative to dbt State, with Slim CI support.</p>
+            <div class="meta"><span>Python</span><span>dbt</span><span>Apache 2.0</span><span class="stars" data-repo="dbt-hodor"><span aria-hidden="true">★ </span><b>4</b><span class="sr"> GitHub stars</span></span></div>
+          </div>
+          <svg class="art" viewBox="0 0 200 120" aria-hidden="true">
+            <path class="ln soft" d="M40 34 C60 34 60 60 80 60 M40 86 C60 86 60 60 80 60 M104 60 C120 60 120 34 136 34 M104 60 C120 60 120 86 136 86"/>
+            <rect class="ln dash paper" x="18" y="24" width="24" height="20" rx="3"/>
+            <rect class="ln dash paper" x="18" y="76" width="24" height="20" rx="3"/>
+            <rect class="ln dash paper" x="80" y="50" width="24" height="20" rx="3"/>
+            <rect class="ln dash paper" x="136" y="76" width="24" height="20" rx="3"/>
+            <rect class="hot b1" x="136" y="24" width="24" height="20" rx="3"/>
+            <rect class="hot b3" x="166" y="50" width="20" height="20" rx="3"/>
+            <path class="ln soft" d="M160 34 C166 34 166 60 166 60"/>
+          </svg>
+        </a>
+        <a class="proj rv" href="https://github.com/alaturqua/skill-canvas">
+          <div>
+            <h3>skill-canvas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></h3>
+            <p>A VS Code extension to design AI agents and skills on a visual canvas: templates, file handoffs, plugins and GitHub imports.</p>
+            <div class="meta"><span>TypeScript / JavaScript</span><span>VS Code</span><span>Apache 2.0</span><span class="stars" data-repo="skill-canvas"><span aria-hidden="true">★ </span><b>3</b><span class="sr"> GitHub stars</span></span></div>
+          </div>
+          <svg class="art" viewBox="0 0 200 120" aria-hidden="true">
+            <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" class="fill" opacity=".25"/></pattern></defs>
+            <rect x="0" y="0" width="200" height="120" fill="url(#dots)"/>
+            <path class="ln soft" d="M66 38 C90 38 86 72 110 72 M66 38 C96 38 100 92 128 92"/>
+            <rect class="ln paper" x="22" y="26" width="44" height="24" rx="4"/>
+            <rect class="ln paper" x="110" y="60" width="44" height="24" rx="4"/>
+            <g class="drag"><rect class="fill" x="128" y="86" width="44" height="24" rx="4"/><circle class="hot" cx="150" cy="98" r="3"/></g>
+          </svg>
+        </a>
+        <a class="proj rv" href="https://github.com/alaturqua/tower-mods">
+          <div>
+            <h3>tower-mods <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></h3>
+            <p>Claude Code mods for running many agent sessions across many repositories from one control tower.</p>
+            <div class="meta"><span>HTML / JS</span><span>Claude Code</span><span>Apache 2.0</span><span class="stars" data-repo="tower-mods"><span aria-hidden="true">★ </span><b>1</b><span class="sr"> GitHub stars</span></span></div>
+          </div>
+          <svg class="art" viewBox="0 0 200 120" aria-hidden="true">
+            <rect class="ln paper" x="22" y="16" width="156" height="88" rx="5"/>
+            <path class="ln soft" d="M22 32 H178"/>
+            <circle class="fill" cx="32" cy="24" r="2.5"/>
+            <g class="ln soft"><path d="M50 50 H120 M50 66 H140 M50 82 H110 M50 98 H130" /></g>
+            <circle class="hot b1" cx="36" cy="50" r="3.5"/>
+            <circle class="hot b2" cx="36" cy="66" r="3.5"/>
+            <circle class="hot b3" cx="36" cy="82" r="3.5"/>
+          </svg>
+        </a>
+        <p class="also rv">Also: <a href="https://github.com/alaturqua/trino-ai">trino-ai</a> <span class="stars" data-repo="trino-ai"><span aria-hidden="true">★ </span><b>16</b><span class="sr"> GitHub stars</span></span>, AI SQL functions for Trino.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="upstream">
+    <div class="wrap grid">
+      <div class="sec-head rv">
+        <h2>Upstream</h2>
+        <p>Merged contributions to the projects my platforms run on: <b data-gh="merged_prs">9</b> pull requests across <b data-gh="merged_projects">6</b> projects.</p>
+      </div>
+      <div class="sec-body rv">
+        <table class="contrib">
+          <thead><tr><th scope="col">PROJECT</th><th scope="col">CHANGE</th><th scope="col"><span class="sr">PULL REQUEST</span></th></tr></thead>
+          <tbody>
+            <tr><td>Trino Gateway</td><td>JMX monitor type for cluster health checks</td><td class="num"><a href="https://github.com/trinodb/trino-gateway/pull/472">#472</a> <a href="https://github.com/trinodb/trino-gateway/pull/611">#611</a></td></tr>
+            <tr><td>Trino Gateway</td><td>Common labels for the Helm chart, UI API docs</td><td class="num"><a href="https://github.com/trinodb/trino-gateway/pull/448">#448</a> <a href="https://github.com/trinodb/trino-gateway/pull/471">#471</a></td></tr>
+            <tr><td>PyIceberg</td><td>Fix config loading on Windows</td><td class="num"><a href="https://github.com/apache/iceberg/pull/7002">#7002</a></td></tr>
+            <tr><td>Trino</td><td>Hive connector documentation</td><td class="num"><a href="https://github.com/trinodb/trino/pull/22093">#22093</a></td></tr>
+            <tr><td>Trino Charts</td><td>Consistent secret naming</td><td class="num"><a href="https://github.com/trinodb/charts/pull/323">#323</a></td></tr>
+            <tr><td>Marquez</td><td>Common labels on ReplicaSets</td><td class="num"><a href="https://github.com/MarquezProject/marquez/pull/2877">#2877</a></td></tr>
+            <tr><td>CloudBeaver</td><td>Trino driver upgrade</td><td class="num"><a href="https://github.com/dbeaver/cloudbeaver/pull/2372">#2372</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="talk">
+    <div class="wrap grid">
+      <div class="sec-head rv">
+        <h2>Talks</h2>
+        <p>On calling large language models straight from SQL, on moving a data platform off Snowflake to Trino and Iceberg, and on Trino for engineers, in English and Turkish.</p>
+      </div>
+      <div class="sec-body">
+        <a class="talk rv" href="https://trino.io/episodes/60.html">
+          <div class="thumb">
+            <img src="assets/img/tcb60.jpg" width="1280" height="720" loading="lazy" alt="Trino Community Broadcast episode 60 video still">
+            <span class="play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>Watch</span>
+          </div>
+          <div>
+            <h3>Trino calling AI</h3>
+            <p>Guest on the Trino Community Broadcast, episode 60: building AI functions into Trino so analysts can use LLMs from plain SQL. The work behind trino-ai.</p>
+            <span class="meta">Trino Community Broadcast · trino.io</span>
+          </div>
+        </a>
+        <a class="talk rv" href="https://www.youtube.com/watch?v=sfkO7WR5ebo">
+          <div class="thumb tcard">
+            <div class="tc-in">
+              <span class="tc-show">Starburst TV</span>
+              <strong class="tc-title">Dismantling the modern data stack illusion</strong>
+              <span class="tc-flow"><i>Snowflake</i><b aria-hidden="true">→</b><i class="k0">Trino</i><i class="k1">Iceberg</i></span>
+            </div>
+            <span class="play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>Watch</span>
+          </div>
+          <div>
+            <h3>Beyond the Snowflake warehouse</h3>
+            <p>Guest speaker for BestSecret on Starburst TV: our move from Snowflake to Starburst Trino and Apache Iceberg.</p>
+            <span class="meta">Starburst TV · YouTube</span>
+          </div>
+        </a>
+        <a class="talk rv" href="https://www.youtube.com/watch?v=yKFvIaSFH3g">
+          <div class="thumb tcard tcard-tr">
+            <div class="tc-in">
+              <span class="tc-show">Veri Bilimi Okulu</span>
+              <strong class="tc-title" lang="tr">Veri Mühendisinin Gözünden Trino</strong>
+              <span class="tc-flow"><i class="k2">Türkçe</i><i class="k4">Trino</i></span>
+            </div>
+            <span class="play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>Watch</span>
+          </div>
+          <div>
+            <h3>Trino through a data engineer’s eyes</h3>
+            <p>A talk in Turkish for Veri Bilimi Okulu, the Data Science School: Trino as a data engineer sees it.</p>
+            <span class="meta">Veri Bilimi Okulu · YouTube · in Turkish</span>
+          </div>
+        </a>
+        <ul class="posts">
+          <li class="k3 rv"><a href="https://www.starburst.io/blog/bestsecret-data-snowflake-warehouse/"><strong>“We are moving off of Snowflake.” BestSecret’s data journey, presented at DATA Festival Munich, June 2023</strong><span>Write-up · Starburst blog</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing">
+    <div class="wrap grid">
+      <div class="sec-head rv">
+        <h2>Writing</h2>
+        <p>Field notes from running platforms in production, on LinkedIn and the BestSecret tech blog.</p>
+      </div>
+      <div class="sec-body">
+        <ul class="posts">
+          <li class="k3 rv"><a href="https://medium.com/bestsecret-tech/maximize-performance-the-bestsecret-to-scaling-trino-clusters-with-keda-c209efe4a081"><strong>Maximize Performance: The BestSecret to Scaling Trino Clusters with KEDA</strong><span>BestSecret Tech · Medium</span></a></li>
+          <li class="k3 rv"><a href="https://www.linkedin.com/pulse/dbt-core-slim-ci-databricks-how-stop-rebuilding-every-isa-inalcik-1ffgf/"><strong>dbt Core and Slim CI on Databricks: How to Stop Rebuilding Everything on Every Change</strong><span>LinkedIn</span></a></li>
+          <li class="k3 rv"><a href="https://www.linkedin.com/pulse/enhancing-security-observability-trino-open-policy-agent-isa-inalcik-zhl9e/"><strong>Enhancing Security and Observability in Trino with Open Policy Agent and OpenTelemetry</strong><span>LinkedIn</span></a></li>
+          <li class="k0 rv"><a href="https://www.linkedin.com/pulse/solving-spark-oom-errors-databricks-how-split-large-json-isa-inalcik-hpf5e/"><strong>Avoiding Spark Out-of-Memory Errors in Databricks: Split Large JSON Files the Right Way</strong><span>LinkedIn</span></a></li>
+          <li class="k3 rv"><a href="https://www.linkedin.com/pulse/pairwise-testing-test-case-creation-open-source-tool-pick-isa-inalcik/"><strong>Pairwise Testing: Combinatorial Test Case Generation with an Open Source Tool</strong><span>LinkedIn</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="career">
+    <div class="wrap grid">
+      <div class="sec-head rv">
+        <h2>Career</h2>
+        <p>Fifteen years in data, from warehouse testing in regulated industries to running lakehouse platforms.</p>
+      </div>
+      <div class="sec-body">
+        <ol class="cv">
+          <li class="now rv"><span class="yr num"><i aria-hidden="true"></i>2025 – now</span><div><h3>Senior Technical Lead Engineer</h3><p class="org">Allianz Partners</p><p>Databricks lakehouse architecture, ingestion and transformation frameworks with dltHub and dbt, agentic tooling to speed up the Oracle to Databricks migration.</p></div></li>
+          <li class="rv"><span class="yr num"><i aria-hidden="true"></i>2022 – 2025</span><div><h3>Data Engineer → Principal Data Engineer</h3><p class="org">BestSecret Group</p><p>Designed a Trino/Starburst and Apache Iceberg lakehouse on Azure, led the migration off legacy platforms, streamlined ETL with dbt and Airflow.</p></div></li>
+          <li class="rv"><span class="yr num"><i aria-hidden="true"></i>2018 – 2022</span><div><h3>Test Automation → Big Data Engineer</h3><p class="org">Commerzbank</p><p>Scalable big data solutions with Spark, Kafka and Google Cloud.</p></div></li>
+          <li class="rv"><span class="yr num"><i aria-hidden="true"></i>2013 – 2017</span><div><h3>Senior Test Engineering Analyst</h3><p class="org">Accenture DACH</p><p>Test automation and data validation for large data warehouse programmes at UBS, Roche, Lufthansa, Aldi Süd and RWE.</p></div></li>
+          <li class="rv"><span class="yr num"><i aria-hidden="true"></i>2011 – 2013</span><div><h3>Analyst</h3><p class="org">Kraftfahrt-Bundesamt</p></div></li>
+        </ol>
+        <div class="certs rv"><span>Microsoft Certified: Azure Data Engineer</span><span>Starburst Certified Practitioner</span><span>FH Aachen</span><span>Missouri State University</span></div>
+        <div class="off rv">
+          <svg viewBox="0 0 240 120" aria-hidden="true"><ellipse class="lake" cx="24" cy="113" rx="22" ry="4.5"/><path class="house" d="M16 106 V98 L22 93 L28 98 V106 Z"/><path class="pass" pathLength="1" d="M48 112 C 66 112, 70 96, 40 88 S 30 66, 92 66 S 150 58, 112 46 S 108 26, 168 26 S 226 18, 232 8"/><path class="peak" d="M128 118 L176 52 L196 78 L214 60 L240 118"/></svg>
+          <p><b>Off the clock.</b> From Bolu, Türkiye, where my favourite place is the house at Gölcük lake. I ride a Voge DS900X, on tours as far as the passes of the Italian Dolomites.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="close" id="contact">
+    <div class="wrap">
+      <div class="close-grid">
+        <div>
+          <h2 class="rv">Into data platforms too? <span>Say hello.</span></h2>
+          <div class="actions rv">
+            <a class="btn btn-solid" href="https://www.linkedin.com/in/isainalcik/">Message on LinkedIn</a>
+            <a class="btn btn-line" href="https://github.com/alaturqua">Follow on GitHub</a>
+          </div>
+        </div>
+        <figure class="phone rv" role="img" aria-label="A phone showing a group chat called prod, where Kafka, dltHub, dbt, Trino, Power BI, Snowflake, Databricks and BigQuery banter with Isa: warehouse rivalry, data jokes, late events at 3am, a Friday deploy, a renamed column, and a good day where Isa goes for a ride.">
+          <div class="screen" aria-hidden="true">
+            <div class="sbar"><span id="clock">09:00</span><span class="ic">
+              <svg viewBox="0 0 17 11"><rect y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" width="3" height="11" rx="1"/></svg>
+              <svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.2-1.2A9.8 9.8 0 0 0 7.5.5 9.8 9.8 0 0 0 .6 3.2l1.2 1.2A8.2 8.2 0 0 1 7.5 2.2Zm0 3.3c1.3 0 2.5.5 3.4 1.3l1.2-1.2a6.5 6.5 0 0 0-9.2 0l1.2 1.2c.9-.8 2.1-1.3 3.4-1.3Zm0 3.2c.5 0 .9.2 1.2.5L7.5 10.4 6.3 9.2c.3-.3.7-.5 1.2-.5Z"/></svg>
+              <svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="15" height="8" rx="2"/><path d="M24 4v4a2 2 0 0 0 0-4Z" opacity=".45"/></svg>
+            </span></div>
+            <div class="head">prod 🔥<small>Kafka, dbt, Snowflake and 6 others</small></div>
+            <div class="msgs" id="msgs"></div>
+          </div>
+        </figure>
+      </div>
+      <footer>
+        <span>© <span class="num">2026</span> Isa Inalcik · isainalcik.dev</span>
+        <span>Hero photo: Gölcük, Bolu, by <a href="https://commons.wikimedia.org/wiki/File:A_house_in_G%C3%B6lc%C3%BCk.jpg">Hakkimage</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span>
+        <span><a href="https://github.com/alaturqua/alaturqua.github.io">Source on GitHub</a> · <a href="datenschutz.html" lang="de">Datenschutz</a></span>
+      </footer>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Packets leave the sources bronze, turn silver through the tables, arrive gold; every few seconds a question runs upstream.
+  (() => {
+    const svg = document.getElementById('flow');
+    const g = document.getElementById('pkts');
+    const NS = 'http://www.w3.org/2000/svg';
+    svg.querySelectorAll('[style*="--c"]').forEach(el => el.classList.add('k' + el.style.getPropertyValue('--c').trim()));
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    const css = n => getComputedStyle(svg).getPropertyValue(n).trim();
+    const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+    const mix = (a, b, t) => { const x = rgb(a), y = rgb(b); return `rgb(${x.map((v, i) => Math.round(v + (y[i] - v) * t))})`; };
+    let C;
+    const readColors = () => C = { bronze: css('--bronze'), silver: css('--silver'), gold: css('--gold'), signal: css('--signal') };
+    readColors();
+    new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    still.addEventListener?.('change', readColors);
+    const dot = (cls, r) => { const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', r); if (cls) c.setAttribute('class', cls); g.appendChild(c); return c; };
+    // Data edges only; the vertical Airflow and dbt links are control, not data.
+    const data = [...svg.querySelectorAll('.edge')].filter(p => !/^M\S+ \S+ L/.test(p.getAttribute('d')))
+      .map(p => ({ p, len: p.getTotalLength(), stage: +p.style.getPropertyValue('--c') }));
+    const nodeAt = (x, y) => [...svg.querySelectorAll('.node')].find(n => {
+      const r = n.querySelector('rect'), bx = +r.getAttribute('x'), by = +r.getAttribute('y');
+      return x >= bx - 1 && x <= bx + +r.getAttribute('width') + 1 && y >= by && y <= by + +r.getAttribute('height');
+    });
+    data.forEach(e => { const a = e.p.getPointAtLength(0), b = e.p.getPointAtLength(e.len); e.from = nodeAt(a.x, a.y); e.to = nodeAt(b.x, b.y); });
+    // What travels: events, rows, JSON and documents from the sources, files and tables through the lake, charts and answers at the end.
+    const SRC = { 'Kafka': 'event', 'Databases': 'row', 'REST APIs': 'json', 'Files & docs': 'doc' };
+    const glyph = (e, i) => e.stage === 0 ? SRC[e.from.textContent.trim()] : e.stage === 1 ? (i ? 'table' : 'doc') : e.stage === 2 ? 'table' : e.to.classList.contains('ai') ? 'spark' : 'chart';
+    const packets = data.flatMap(e => Array.from({ length: e.stage === 3 ? 1 : 2 }, (_, i) => {
+      const c = document.createElementNS(NS, 'g'), u = document.createElementNS(NS, 'use');
+      u.setAttribute('href', '#gl-' + glyph(e, i)); c.appendChild(u);
+      c.setAttribute('class', 'pkt k' + e.stage); c.dataset.edge = e.p.id; g.appendChild(c);
+      return { e, t: Math.random(), c };
+    }));
+    const tint = (e, t) => e.stage === 0 ? C.bronze : e.stage === 1 ? mix(C.bronze, C.silver, t) : e.stage === 2 ? mix(C.silver, C.gold, t) : C.gold;
+    let raf = 0, last = 0, visible = false, gen = 0;
+    const tick = now => {
+      const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
+      for (const k of packets) {
+        k.t = (k.t + dt * 62 / k.e.len) % 1;
+        const pt = k.e.p.getPointAtLength(k.t * k.e.len);
+        k.c.setAttribute('transform', `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)}) scale(1.25)`); k.c.style.color = tint(k.e, k.t);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const ping = (n, ms, cls = 'ping') => { n.classList.add(cls); setTimeout(() => n.classList.remove(cls), ms); };
+    const wait = ms => new Promise(r => setTimeout(r, ms));
+    const along = (e, from, to, dur, color, run) => new Promise(res => {
+      const halo = dot('', 9), head = dot('', 4.2), t0 = performance.now();
+      halo.style.fill = head.style.fill = color; halo.style.opacity = .22;
+      const step = now => {
+        const u = Math.min(1, (now - t0) / dur), ease = u < .5 ? 2 * u * u : 1 - (2 - 2 * u) ** 2 / 2;
+        const pt = e.p.getPointAtLength((from + (to - from) * ease) * e.len);
+        for (const c of [halo, head]) { c.setAttribute('cx', pt.x); c.setAttribute('cy', pt.y); }
+        if (u < 1 && run === gen) requestAnimationFrame(step); else { halo.remove(); head.remove(); res(run === gen); }
+      };
+      requestAnimationFrame(step);
+    });
+    const serve = [...svg.querySelectorAll('.node')].filter(n => n.classList.contains('k4'));
+    const ask = async run => {
+      await wait(2600);
+      for (let i = 3; run === gen; i++) {
+        const s = serve[i % serve.length], chain = [];
+        for (let cur = s, ins; (ins = data.filter(e => e.to === cur)).length; cur = chain.at(-1).from) chain.push(ins[Math.floor(Math.random() * ins.length)]);
+        ping(s, 700);
+        for (const e of chain) { e.p.classList.add('hot'); if (!await along(e, 1, 0, 520, C.signal, run)) return chain.forEach(e => e.p.classList.remove('hot')); ping(e.from, 600); }
+        await wait(250);
+        for (const e of chain.slice().reverse()) { e.p.classList.replace('hot', 'ret'); if (!await along(e, 0, 1, 360, C.gold, run)) return chain.forEach(e => e.p.classList.remove('ret')); }
+        ping(s, 1400, 'gold');
+        await wait(900); chain.forEach(e => e.p.classList.remove('ret'));
+        await wait(3200);
+      }
+    };
+    // Only move while the diagram is on screen and motion is welcome.
+    const sync = () => {
+      const go = visible && !still.matches;
+      if (go && !raf) { last = 0; raf = requestAnimationFrame(tick); ask(++gen); }
+      if (!go && raf) { cancelAnimationFrame(raf); raf = 0; gen++; }
+    };
+    still.addEventListener?.('change', sync);
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }).observe(svg);
+    else { visible = true; sync(); }
+
+    const root = document.documentElement;
+    // No stored choice means "system": the CSS follows prefers-color-scheme.
+    const themeBtns = document.querySelectorAll('.theme button');
+    const syncTheme = () => themeBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.t === (root.dataset.theme || 'system')));
+    const setTheme = t => {
+      if (t === 'system') delete root.dataset.theme; else root.dataset.theme = t;
+      try { t === 'system' ? localStorage.removeItem('theme') : localStorage.setItem('theme', t); } catch (e) {}
+      syncTheme();
+    };
+    themeBtns.forEach(b => b.addEventListener('click', () => {
+      const t = b.dataset.t;
+      if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return setTheme(t);
+      const r = b.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+      root.style.setProperty('--vx', x + 'px');
+      root.style.setProperty('--vy', y + 'px');
+      root.style.setProperty('--vr', Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 'px');
+      root.classList.add('vt');
+      document.startViewTransition(() => setTheme(t)).finished.finally(() => root.classList.remove('vt'));
+    }));
+
+    // Lineage: pointing at a node lights everything upstream and downstream of it.
+    const nodes = [...svg.querySelectorAll('.node')];
+    const at = (x, y) => nodes.find(n => {
+      const r = n.querySelector('rect'), bx = +r.getAttribute('x'), by = +r.getAttribute('y');
+      return x >= bx - 1 && x <= bx + +r.getAttribute('width') + 1 && y >= by && y <= by + +r.getAttribute('height');
+    });
+    const links = [...svg.querySelectorAll('.edge')].map(e => {
+      const a = e.getPointAtLength(0), b = e.getPointAtLength(e.getTotalLength());
+      return { e, from: at(a.x, a.y), to: at(b.x, b.y) };
+    });
+    const walk = (start, down) => {
+      const seen = new Set([start]), used = new Set(), queue = [start];
+      while (queue.length) {
+        const n = queue.shift();
+        links.forEach(l => {
+          const [a, b] = down ? [l.from, l.to] : [l.to, l.from];
+          if (a === n) { used.add(l); if (!seen.has(b)) { seen.add(b); queue.push(b); } }
+        });
+      }
+      return [seen, used];
+    };
+    const clear = () => { svg.classList.remove('trace'); [...svg.querySelectorAll('.lit')].forEach(el => el.classList.remove('lit', 'src')); };
+    const trace = n => {
+      clear();
+      const [dn, de] = walk(n, true), [un, ue] = walk(n, false);
+      [...dn, ...un].forEach(x => x.classList.add('lit'));
+      n.classList.add('src');
+      [...de, ...ue].forEach(l => { l.e.classList.add('lit'); g.querySelector(`[data-edge="${l.e.id}"]`)?.classList.add('lit'); });
+      svg.classList.add('trace');
+    };
+    svg.setAttribute('role', 'group');
+    nodes.forEach(n => {
+      n.setAttribute('tabindex', '0');
+      n.setAttribute('aria-label', n.textContent.trim() + ': trace its data path');
+      n.addEventListener('pointerenter', () => trace(n));
+      n.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') clear(); });
+      n.addEventListener('focus', () => trace(n));
+      n.addEventListener('blur', clear);
+    });
+
+    // Stars and merged PRs, refreshed daily by .github/workflows/github-stats.yml.
+    fetch('data/github.json').then(r => r.ok ? r.json() : null).then(d => {
+      if (!d) return;
+      document.querySelectorAll('.stars').forEach(el => { const n = d.stars?.[el.dataset.repo]; if (n != null) el.querySelector('b').textContent = n; });
+      document.querySelectorAll('[data-gh]').forEach(el => { if (d[el.dataset.gh] != null) el.textContent = d[el.dataset.gh]; });
+    }).catch(() => {});
+    syncTheme();
+
+    const bar = document.querySelector('.bar');
+    const onScroll = () => bar.classList.toggle('scrolled', scrollY > 8);
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
+      svg.classList.add('on');
+      return;
+    }
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add(e.target === svg ? 'on' : 'in'); io.unobserve(e.target); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+    io.observe(svg);
+  })();
+</script>
+<script>
+  // Living data grid: dots on a 28px grid, colour packets running the grid lines, dots lift near the cursor.
+  (() => {
+    const cv = document.getElementById('bg'), ctx = cv.getContext('2d');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    const GAP = 28;
+    let w, h, cols, rows, colors, ink, packets = [], mx = -1e4, my = -1e4, raf = 0, last = 0;
+    const read = () => {
+      const cs = getComputedStyle(document.documentElement);
+      colors = ['--blue', '--violet', '--amber', '--green', '--rose'].map(v => cs.getPropertyValue(v).trim());
+      ink = cs.getPropertyValue('--ink').trim();
+    };
+    const size = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      w = innerWidth; h = innerHeight;
+      cv.width = w * dpr; cv.height = h * dpr;
+      cv.style.width = w + 'px'; cv.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(w / GAP) + 1; rows = Math.ceil(h / GAP) + 2;
+    };
+    const spawn = (fresh) => {
+      const horiz = Math.random() < .6, dir = Math.random() < .5 ? 1 : -1;
+      return { horiz, dir, line: Math.floor(Math.random() * (horiz ? rows : cols)),
+        t: fresh ? Math.random() : (dir > 0 ? -.1 : 1.1), v: .00006 + Math.random() * .0001,
+        c: colors[Math.floor(Math.random() * colors.length)], len: 70 + Math.random() * 150 };
+    };
+    const frame = now => {
+      const dt = Math.min(now - last, 50); last = now;
+      const off = still.matches ? 0 : -(scrollY * .25) % GAP;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = ink;
+      for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+        const x = i * GAP, y = j * GAP + off, d = Math.hypot(x - mx, y - my), k = d < 170 ? 1 - d / 170 : 0;
+        ctx.globalAlpha = .09 + k * .5;
+        ctx.beginPath(); ctx.arc(x, y, .9 + k * 1.8, 0, 6.2832); ctx.fill();
+      }
+      if (!still.matches) {
+        ctx.lineWidth = 1.5;
+        packets.forEach(p => {
+          p.t += p.v * dt * p.dir;
+          const head = p.t * (p.horiz ? w : h), tail = head - p.len * p.dir, fixed = p.line * GAP + (p.horiz ? off : 0);
+          const [x1, y1, x2, y2] = p.horiz ? [tail, fixed, head, fixed] : [fixed, tail, fixed, head];
+          const gr = ctx.createLinearGradient(x1, y1, x2, y2);
+          gr.addColorStop(0, p.c + '00'); gr.addColorStop(1, p.c);
+          ctx.globalAlpha = .45; ctx.strokeStyle = gr;
+          ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+          ctx.globalAlpha = .8; ctx.fillStyle = p.c;
+          ctx.beginPath(); ctx.arc(x2, y2, 2, 0, 6.2832); ctx.fill();
+        });
+        packets = packets.map(p => (p.t > 1.15 || p.t < -.15) ? spawn(false) : p);
+        if (!document.hidden) raf = requestAnimationFrame(frame);
+      }
+    };
+    const run = () => { cancelAnimationFrame(raf); last = performance.now(); frame(last); };
+    read(); size();
+    packets = Array.from({ length: innerWidth < 700 ? 7 : 16 }, () => spawn(true));
+    addEventListener('resize', () => { size(); if (still.matches) run(); });
+    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; if (still.matches) run(); }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => { mx = my = -1e4; });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) run(); });
+    still.addEventListener('change', run);
+    new MutationObserver(() => { read(); packets.forEach(p => p.c = colors[Math.floor(Math.random() * colors.length)]); if (still.matches) run(); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { read(); run(); });
+    run();
+  })();
+
+  // The stack texts you, one stage per message; plays only while on screen, static under reduced motion.
+  (() => {
+    const box = document.getElementById('msgs');
+    const clock = document.getElementById('clock');
+    const C = { Kafka: ['#7aa2ff', 'Ka'], dltHub: ['#a993f7', 'dl'], dbt: ['#f2b938', 'db'], Trino: ['#41cf99', 'Tr'], 'Power BI': ['#f27aa6', 'PB'],
+      Databricks: ['#ff7a59', 'DB'], BigQuery: ['#5ec8f2', 'BQ'], Snowflake: ['#d7ecff', '❄'] };
+    // [time, [who, text, tapback?]...]; a different drama each loop
+    const STORIES = [
+      ['10:15', ['Snowflake', 'just auto-scaled to 4XL ❄️'], ['Databricks', 'cute. i’m a lakehouse 🏠🌊'], ['BigQuery', 'i don’t even have servers 😌'],
+        ['dbt', 'can you all just run my SQL'], ['Isa', 'who spent €4k on one SELECT * ?', '💸'], ['BigQuery', 'in my defense it was a big query', '🥁']],
+      ['14:02', ['Trino', 'why did the data engineer dump the CSV?'], ['Kafka', 'why'], ['Trino', 'too many commas-mitments'],
+        ['dbt', 'added a test for that joke. it failed ❌', '😂'], ['Snowflake', 'cold. even for me ❄️'], ['Isa', 'muting this chat']],
+      ['16:30', ['Databricks', 'is it a lake, a warehouse or a lakehouse?'], ['Snowflake', 'it’s a data cloud'], ['BigQuery', 'it’s a table'],
+        ['Isa', 'it’s a CSV on someone’s desktop', '💀'], ['Power BI', '😳 that’s my source']],
+      ['08:05', ['Kafka', 'delivered everything exactly once 😇'], ['dltHub', 'i got some of it twice'], ['Isa', 'at least once, you mean'], ['Kafka', 'shhh 🤫', '😂']],
+      ['09:00', ['Kafka', 'yo. new events. lots of them 👀'], ['dltHub', 'loaded. the schema changed again btw', '🙃'], ['dbt', 'all tests passed ✅ nobody touch anything', '🙏'],
+        ['Trino', 'query done. joined 3 catalogs. you’re welcome'], ['Power BI', 'CFO says the dashboard looks great', '🎉'], ['Isa', '👍 going for a ride']],
+      ['03:12', ['Kafka', 'u up?'], ['Isa', 'no'], ['Kafka', '2 million late events. from 2019', '💀'],
+        ['dltHub', 'i got this 💪'], ['dbt', 'incremental model says: absolutely not', '😭'], ['Isa', 'going back to sleep']],
+      ['17:58', ['Isa', 'tiny change, deploying now. it’s friday 😎'], ['dbt', '😐'], ['Kafka', '😐'], ['Trino', '😐'], ['Power BI', '😐'], ['Isa', '…reverting', '👏']],
+      ['11:40', ['Kafka', 'someone renamed customer_id to customerId'], ['dltHub', 'i adapted. i always adapt 🧘'], ['dbt', '3 tests failed. i am not okay', '🫂'],
+        ['Trino', 'not my problem. i just query things'], ['Power BI', 'revenue is 0. CFO is calling 📞', '😱'], ['Isa', 'on it. coffee first ☕']],
+    ];
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const bubble = ([who, txt, react], typing) => {
+      const [c, ini] = C[who] || [], m = document.createElement('div'), b = document.createElement('div');
+      m.className = `msg${c ? '' : ' me'}${typing ? ' typing' : ''}`; b.className = 'b';
+      if (c) { m.style.setProperty('--c', c); const av = document.createElement('span'); av.className = 'av'; av.textContent = ini; m.append(av); }
+      if (typing) b.innerHTML = '<i></i><i></i><i></i>';
+      else { if (c) { const s = document.createElement('small'); s.textContent = who; b.append(s); } b.append(txt); }
+      m.append(b); box.append(m);
+      if (react && !typing) { const r = document.createElement('span'); r.className = 'react'; r.textContent = react; b.append(r); }
+      return m;
+    };
+    const show = ([time, ...msgs], instant) => { clock.textContent = time; box.replaceChildren(); if (instant) msgs.forEach(m => bubble(m)); return msgs; };
+    let gen = 0, n = 0;
+    const play = async g => {
+      while (g === gen) {
+        for (const msg of show(STORIES[n++ % STORIES.length])) {
+          const t = bubble(msg, true); await sleep(msg[1].length < 4 ? 500 : 900); if (g !== gen) return;
+          t.remove(); bubble(msg); await sleep(1400); if (g !== gen) return;
+        }
+        await sleep(3500);
+      }
+    };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return show(STORIES[0], true);
+    new IntersectionObserver(([e]) => e.isIntersecting ? play(++gen) : gen++, { threshold: .3 }).observe(box);
+  })();
+</script>
+</body>
+</html>

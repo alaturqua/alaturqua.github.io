@@ -1,0 +1,47 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  # Daily rebuild refreshes the GitHub stats without committing them.
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh site/data/github.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # A GitHub API hiccup must not block a deploy; the committed file is the fallback.
+        run: |
+          if ./scripts/github-stats.sh > "$RUNNER_TEMP/github.json"; then
+            mv "$RUNNER_TEMP/github.json" site/data/github.json
+          else
+            echo "::warning::Stats refresh failed, keeping committed site/data/github.json"
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
