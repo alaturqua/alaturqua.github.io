@@ -1,0 +1,486 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T16:14:28+00:00",
+  "title": "Design System: Isa Inalcik · Data Platform Engineering",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f2f1ed",
+        "tonalRamp": [
+          "#2c2a20",
+          "#4e4a39",
+          "#706a51",
+          "#928a69",
+          "#aba58b",
+          "#c3bfad",
+          "#dcd9ce",
+          "#f4f3f0"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Paper 2",
+        "canonical": "#e9e7e1",
+        "tonalRamp": [
+          "#2c2920",
+          "#4e4939",
+          "#6f6852",
+          "#91876a",
+          "#aaa38b",
+          "#c3bdad",
+          "#dcd8cf",
+          "#f4f3f0"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Graphite Ink",
+        "canonical": "#1b1b1a",
+        "tonalRamp": [
+          "#272726",
+          "#454542",
+          "#62625f",
+          "#80807b",
+          "#9d9d99",
+          "#b9b9b7",
+          "#d6d6d4",
+          "#f2f2f2"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "#4a4a47",
+        "tonalRamp": [
+          "#272725",
+          "#454542",
+          "#63635f",
+          "#80807b",
+          "#9d9d99",
+          "#b9b9b6",
+          "#d6d6d4",
+          "#f3f3f2"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Mute",
+        "canonical": "#64645e",
+        "tonalRamp": [
+          "#272725",
+          "#454541",
+          "#64645e",
+          "#82827a",
+          "#9e9e98",
+          "#babab6",
+          "#d6d6d4",
+          "#f3f3f2"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#d3d1ca",
+        "tonalRamp": [
+          "#2a2823",
+          "#4a473d",
+          "#696658",
+          "#898472",
+          "#a4a092",
+          "#bfbcb1",
+          "#d9d7d1",
+          "#f3f3f1"
+        ]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Braun Indicator Orange",
+        "canonical": "#e2571e",
+        "tonalRamp": [
+          "#441a09",
+          "#772e0f",
+          "#ab4116",
+          "#df551d",
+          "#e87a4e",
+          "#efa181",
+          "#f5c8b5",
+          "#fceee8"
+        ]
+      },
+      "signal-ink": {
+        "role": "primary",
+        "displayName": "Signal Ink",
+        "canonical": "#b8400f",
+        "tonalRamp": [
+          "#471906",
+          "#7d2b0a",
+          "#b33e0f",
+          "#e85113",
+          "#f07746",
+          "#f49f7c",
+          "#f9c6b2",
+          "#fdeee7"
+        ]
+      },
+      "stage-blue": {
+        "role": "secondary",
+        "displayName": "k0 Platform Blue",
+        "canonical": "#2a5fd6",
+        "tonalRamp": [
+          "#0c1c40",
+          "#163271",
+          "#1f47a2",
+          "#295dd3",
+          "#5781df",
+          "#88a6e8",
+          "#b9caf1",
+          "#eaeffb"
+        ]
+      },
+      "stage-violet": {
+        "role": "secondary",
+        "displayName": "k1 Ingest Violet",
+        "canonical": "#7353d1",
+        "tonalRamp": [
+          "#1b103c",
+          "#301c6a",
+          "#452998",
+          "#5a35c6",
+          "#7e61d5",
+          "#a48fe1",
+          "#c9bded",
+          "#efebfa"
+        ]
+      },
+      "stage-amber": {
+        "role": "secondary",
+        "displayName": "k2 Table Amber",
+        "canonical": "#b87900",
+        "tonalRamp": [
+          "#4c3200",
+          "#875900",
+          "#c17f00",
+          "#fba500",
+          "#ffba37",
+          "#ffce71",
+          "#ffe2ab",
+          "#fff6e6"
+        ]
+      },
+      "stage-green": {
+        "role": "secondary",
+        "displayName": "k3 DevOps Green",
+        "canonical": "#138a5f",
+        "tonalRamp": [
+          "#09432e",
+          "#107652",
+          "#17aa75",
+          "#1edd98",
+          "#4fe7b0",
+          "#82eec7",
+          "#b5f5de",
+          "#e9fcf5"
+        ]
+      },
+      "stage-rose": {
+        "role": "secondary",
+        "displayName": "k4 AI Rose",
+        "canonical": "#c42f68",
+        "tonalRamp": [
+          "#3e0f21",
+          "#6d1a3a",
+          "#9c2553",
+          "#cb316c",
+          "#d85d8c",
+          "#e48cae",
+          "#efbbcf",
+          "#faeaf0"
+        ]
+      },
+      "deep": {
+        "role": "tertiary",
+        "displayName": "Deep Blue",
+        "canonical": "#16328f",
+        "tonalRamp": [
+          "#0a1742",
+          "#122975",
+          "#1a3ba7",
+          "#224cda",
+          "#5173e4",
+          "#849cec",
+          "#b6c5f4",
+          "#e9edfc"
+        ]
+      },
+      "close-accent": {
+        "role": "tertiary",
+        "displayName": "Close Accent",
+        "canonical": "#ffab85",
+        "tonalRamp": [
+          "#4c1800",
+          "#872a00",
+          "#c13c00",
+          "#fb4e00",
+          "#ff7537",
+          "#ff9d71",
+          "#ffc5ab",
+          "#ffede6"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name and the close-band headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project, talk, career, panel titles."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "One hero statement."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running copy, 52-60ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Spec labels, meta, dates, chips."
+      }
+    },
+    "stageMapping": {
+      "k0": "stage-blue",
+      "k1": "stage-violet",
+      "k2": "stage-amber",
+      "k3": "stage-green",
+      "k4": "stage-rose",
+      "mechanism": "class kN sets --k; components read var(--k)"
+    },
+    "themes": {
+      "light": ":root",
+      "dark": "@media (prefers-color-scheme: dark) :root:not([data-theme=light]), and :root[data-theme=dark]",
+      "toggle": "three-way segmented .theme group (System/Light/Dark, aria-pressed); Light/Dark write data-theme and localStorage, System removes both"
+    },
+    "shadows": [
+      {
+        "name": "panel-lift",
+        "value": "0 18px 40px -18px color-mix(in srgb, var(--k) 60%, transparent)",
+        "purpose": "Expertise panel hover only."
+      },
+      {
+        "name": "play-chip",
+        "value": "0 6px 24px rgb(0 0 0 / .18)",
+        "purpose": "Play chip over the talk thumbnail."
+      },
+      {
+        "name": "now-halo",
+        "value": "0 0 0 4px color-mix(in srgb, var(--signal) 22%, transparent)",
+        "purpose": "Current career dot."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "The only easing for transitions and reveals."
+      },
+      {
+        "name": "name-lift",
+        "value": "translateY(105%) to none, 1.1s, 120ms stagger",
+        "purpose": "Hero name lines rise from a mask."
+      },
+      {
+        "name": "stroke-draw",
+        "value": "stroke-dashoffset 1 to 0, 1.1s, 180ms per column + 260ms",
+        "purpose": "Flow diagram edges draw on view."
+      },
+      {
+        "name": "packets",
+        "value": "SVG animateMotion, r=3, 2.2-3.25s, keySplines .45 0 .25 1, indefinite",
+        "purpose": "Data packets travel every flow edge."
+      },
+      {
+        "name": "reveal",
+        "value": "opacity 0 + translateY(14px) to rest, .9s",
+        "purpose": ".rv sections, only when JS is present."
+      },
+      {
+        "name": "theme-fade",
+        "value": "background/color/fill/border .5s",
+        "purpose": "Theme switch cross-fade."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation and transition none; diagram shown drawn; packets hidden",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "hero-stack",
+        "value": "980px"
+      },
+      {
+        "name": "section-stack",
+        "value": "900px"
+      },
+      {
+        "name": "talk-stack",
+        "value": "760px"
+      },
+      {
+        "name": "nav-trim",
+        "value": "720px"
+      },
+      {
+        "name": "diagram-fade",
+        "value": "640px"
+      },
+      {
+        "name": "row-stack",
+        "value": "560px"
+      }
+    ],
+    "rasterProvenance": [
+      {
+        "src": "assets/img/tcb60.jpg",
+        "origin": "YouTube thumbnail, Trino Community Broadcast 60",
+        "authored": false
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "Primary action pill.",
+      "html": "<a class=\"ds-btn-solid\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn-solid{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;font:500 16px 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;border:1px solid var(--signal-ink,#b8400f);background:var(--signal-ink,#b8400f);color:var(--on-signal,#fff);transition:background .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),transform .25s}.ds-btn-solid:hover{background:var(--ink,#1b1b1a);border-color:var(--ink,#1b1b1a);color:var(--paper,#f2f1ed)}.ds-btn-solid:focus-visible{outline:2px solid var(--signal,#e2571e);outline-offset:3px}.ds-btn-solid:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary action pill.",
+      "html": "<a class=\"ds-btn-line\" href=\"#\">GitHub</a>",
+      "css": ".ds-btn-line{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:999px;font:500 16px 'Hanken Grotesk',system-ui,sans-serif;text-decoration:none;color:var(--ink,#1b1b1a);border:1px solid var(--ink,#1b1b1a);transition:background .25s,color .25s}.ds-btn-line:hover{background:var(--ink,#1b1b1a);color:var(--paper,#f2f1ed)}.ds-btn-line:focus-visible{outline:2px solid var(--signal,#e2571e);outline-offset:3px}"
+    },
+    {
+      "name": "Top Bar",
+      "kind": "nav",
+      "description": "Sticky translucent bar with wordmark dot and nav.",
+      "html": "<header class=\"ds-bar\"><a class=\"ds-mark\" href=\"#\"><i></i>Isa Inalcik</a><nav><a href=\"#\">Expertise</a><a href=\"#\">Open source</a><a href=\"#\">Contact</a></nav></header>",
+      "css": ".ds-bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 24px;background:color-mix(in srgb,var(--paper,#f2f1ed) 88%,transparent);border-bottom:1px solid var(--rule,#d3d1ca);font-family:'Hanken Grotesk',system-ui,sans-serif}.ds-mark{display:inline-flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;color:var(--ink,#1b1b1a)}.ds-mark i{width:9px;height:9px;border-radius:50%;background:var(--signal,#e2571e)}.ds-bar nav{display:flex;gap:28px;font-size:15px}.ds-bar nav a{color:var(--ink-2,#4a4a47);text-decoration:none}.ds-bar nav a:hover{color:var(--ink,#1b1b1a)}.ds-bar a:focus-visible{outline:2px solid var(--signal,#e2571e);outline-offset:3px}"
+    },
+    {
+      "name": "Theme Control",
+      "kind": "nav",
+      "refersTo": "theme-segment",
+      "description": "Three-way System/Light/Dark segmented group; pressed segment fills ink.",
+      "html": "<div class=\"ds-theme\" role=\"group\" aria-label=\"Colour theme\"><button aria-pressed=\"true\" aria-label=\"System\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg></button><button aria-pressed=\"false\" aria-label=\"Light\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"12\" cy=\"12\" r=\"4.5\"/><path d=\"M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22\"/></svg></button><button aria-pressed=\"false\" aria-label=\"Dark\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z\"/></svg></button></div>",
+      "css": ".ds-theme{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--rule,#d3d1ca);border-radius:999px}.ds-theme button{width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:var(--mute,#64645e);cursor:pointer;transition:background-color .3s,color .3s}.ds-theme button:hover{color:var(--ink,#1b1b1a)}.ds-theme button[aria-pressed=true]{background:var(--ink,#1b1b1a);color:var(--paper,#f2f1ed)}.ds-theme button:focus-visible{outline:2px solid var(--signal,#e2571e);outline-offset:3px}.ds-theme svg{width:15px;height:15px}"
+    },
+    {
+      "name": "Built Item",
+      "kind": "custom",
+      "description": "Ruled two-column list item keyed by a stage dot.",
+      "html": "<div class=\"ds-built\" style=\"--k:#c42f68\"><h3>AI functions for Trino</h3><p>LLM calls exposed as SQL functions.</p><small>Trino · Starburst</small></div>",
+      "css": ".ds-built{padding:24px 0;border-bottom:1px solid var(--rule,#d3d1ca);font-family:'Hanken Grotesk',system-ui,sans-serif}.ds-built h3{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink,#1b1b1a)}.ds-built h3::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--k);flex:none}.ds-built p{margin:0 0 8px;font-size:16px;color:var(--ink-2,#4a4a47)}.ds-built small{font-size:14px;color:var(--mute,#64645e)}"
+    },
+    {
+      "name": "Stage Chip",
+      "kind": "chip",
+      "refersTo": "tag-chip",
+      "description": "Pill tag tinted by its stage hue.",
+      "html": "<span class=\"ds-chip\" style=\"--k:#2a5fd6\">Apache Iceberg</span>",
+      "css": ".ds-chip{display:inline-block;font:14px 'Hanken Grotesk',system-ui,sans-serif;padding:5px 12px;border-radius:999px;color:var(--ink,#1b1b1a);background:color-mix(in srgb,var(--k) 18%,var(--paper,#f2f1ed))}"
+    },
+    {
+      "name": "Expertise Panel",
+      "kind": "card",
+      "refersTo": "expertise-panel",
+      "description": "Square stage-tinted panel with a 2px stage rule on top; lifts with a hue shadow on hover.",
+      "html": "<article class=\"ds-xp\" style=\"--k:#138a5f\"><h3>DevOps &amp; CI/CD</h3><p>Everything as code and tested before it ships.</p></article>",
+      "css": ".ds-xp{padding:32px;border-radius:0;font-family:'Hanken Grotesk',system-ui,sans-serif;background:color-mix(in srgb,var(--k) 11%,var(--paper,#f2f1ed));border-top:2px solid var(--k);transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s cubic-bezier(.16,1,.3,1)}.ds-xp:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px color-mix(in srgb,var(--k) 60%,transparent)}.ds-xp h3{margin:0 0 10px;font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--ink,#1b1b1a)}.ds-xp p{margin:0;color:var(--ink-2,#4a4a47)}"
+    },
+    {
+      "name": "Spec Row",
+      "kind": "custom",
+      "description": "Data-sheet row: mute label, ink value, hairline below.",
+      "html": "<dl class=\"ds-spec\"><dt>In data</dt><dd>Since 2011</dd></dl>",
+      "css": ".ds-spec{display:grid;grid-template-columns:84px 1fr;margin:0;padding:9px 0;border-bottom:1px solid var(--rule,#d3d1ca);font:15px 'Hanken Grotesk',system-ui,sans-serif}.ds-spec dt{color:var(--mute,#64645e)}.ds-spec dd{margin:0;color:var(--ink,#1b1b1a)}"
+    },
+    {
+      "name": "Post Row",
+      "kind": "custom",
+      "description": "Ruled list row; indents and takes its stage hue on hover.",
+      "html": "<a class=\"ds-post\" href=\"#\" style=\"--k:#7353d1\"><strong>Trino calling AI</strong><span>2025</span></a>",
+      "css": ".ds-post{display:grid;grid-template-columns:1fr auto;gap:8px 24px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--rule,#d3d1ca);text-decoration:none;color:var(--ink,#1b1b1a);font-family:'Hanken Grotesk',system-ui,sans-serif;transition:padding .5s cubic-bezier(.16,1,.3,1)}.ds-post:hover{padding-left:10px}.ds-post strong{font-size:19px;font-weight:600}.ds-post:hover strong{color:var(--k)}.ds-post span{font-size:14px;color:var(--mute,#64645e);display:inline-flex;align-items:center;gap:8px}.ds-post span::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--k)}.ds-post:focus-visible{outline:2px solid var(--signal,#e2571e);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Braun Spec Sheet",
+    "overview": "Warm grey paper, graphite ink, 1px hairline rules on a 12-column grid. Information is set like a product data sheet: label column in mute, value in ink, a rule under every row. Illustration is always a hairline line drawing; colour arrives as a stage hue on the moving datum, the dot that keys a row, or the panel it belongs to.\n\nUser-steered divergences from the original single-orange contract: the palette widened to five stage hues (blue, violet, amber, green, rose), each bound to one part of a data platform, and the signature diagram is coloured by stage rather than drawn in ink alone. Orange survived as the indicator: wordmark dot, status dot, the period after the name, the \"now\" career marker, and the primary call to action. The page ends in a deep-blue close band, the only full-bleed colour surface.",
+    "keyCharacteristics": [
+      "Hairline 1px rules as the main structural device; flat surfaces.",
+      "One sans family (Hanken Grotesk 300–700), tight negative tracking at display sizes.",
+      "Stage hues mapped `k0..k4` and applied through one `--k` custom property.",
+      "Light, dark and system themes via a three-way segmented control; every token has a dark twin.",
+      "Motion is data-shaped: strokes draw, packets travel, names lift; all off under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Indicator Rule",
+        "body": "Orange marks only identity, live status and the primary action; it is never a stage hue or a surface.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Variable Rule",
+        "body": "Stage colour is set once per element via `k0..k4` and consumed as `var(--k)`; no component hard-codes a stage hex.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tint Ceiling Rule",
+        "body": "Stage hues tint by `color-mix` with paper: 8% art wells, 11% panels, 14–18% chips and hub nodes; text in a stage hue is mixed 65–70% with ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dark Twin Rule",
+        "body": "Each token is redefined for dark in both the media query and `:root[data-theme=\"dark\"]`; add a token in all three places or not at all.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Years, counts and dates use `.num` (tabular-nums).",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-At-Rest Rule",
+        "body": "Nothing casts a shadow at rest except the play chip over a photograph.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** draw every illustration as 1px hairline, colouring only the moving or \"hot\" datum and the stage it belongs to.",
+      "**Do** bind colour through `k0..k4` and `--k`, and keep the stage-to-hue mapping fixed.",
+      "**Do** separate list rows with a 1px rule rather than cards.",
+      "**Do** give every animation a reduced-motion end state that shows the finished drawing.",
+      "**Do** render photographs grayscale at rest, restoring colour on hover."
+    ],
+    "donts": [
+      "**Don't** use orange as a stage hue, a large fill, or decoration beyond the indicator set.",
+      "**Don't** add a second typeface or a display face.",
+      "**Don't** use dark-neon developer styling or glow effects.",
+      "**Don't** add resting shadows to panels or rows."
+    ]
+  }
+}

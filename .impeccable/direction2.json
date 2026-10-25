@@ -1,0 +1,48 @@
+{
+  "title": "Schlicht: three quiet directions",
+  "question": "Familiar, understated, well made. Pick one, or take the category standard.",
+  "options": [
+    {
+      "id": "safer-rams",
+      "label": "Braun product sheet",
+      "lineage": "Dieter Rams and Braun spec sheets, DIN typography, Ulm school",
+      "thesis": "Weniger, aber besser. The engineer presented the way Braun presented a radio: precise, calm, one signal colour.",
+      "palette": ["#f2f1ed", "#1b1b1a", "#8a8a85", "#e2571e"],
+      "materials": ["warm grey paper", "fine hairline grid", "one orange indicator dot"],
+      "viewport": "Large quiet name at left on a strict 12-column grid, a one-line positioning statement, a small portrait, and a spec table (Role, Focus, Location, Since 2011) set like a product data sheet.",
+      "risk": "Close to the clean minimal portfolio. It only stands out through typesetting precision and the one orange indicator."
+    },
+    {
+      "id": "safer-lebenslauf",
+      "label": "Tabellarischer Lebenslauf",
+      "lineage": "the German tabular CV: years on the left, entries on the right",
+      "thesis": "Your career as a perfectly typeset table. Hiring managers read it in ten seconds, and the rigour is the message.",
+      "palette": ["#ffffff", "#141414", "#6b6b6b", "#1d4ed8"],
+      "materials": ["white page", "tabular figures", "rules between sections"],
+      "viewport": "Name and title at top, then a two-column table straight away: years | role, company, one line of impact. Projects and contributions follow in the same table grammar.",
+      "risk": "Very plain. The quality has to come entirely from type, spacing and micro-motion."
+    },
+    {
+      "id": "safer-ledger",
+      "label": "Snapshot ledger",
+      "lineage": "Iceberg table snapshots and time travel",
+      "thesis": "A quiet one-column page where each career step is a committed snapshot, a subtle nod to data people.",
+      "palette": ["#fafaf9", "#18181b", "#71717a", "#0e7490"],
+      "materials": ["monospace snapshot ids", "hairline timeline"],
+      "viewport": "Name and statement, then a vertical ledger of snapshots (2025 · Allianz Partners · snapshot 8f3a…) that rise in as you scroll.",
+      "risk": "The data metaphor may read as a gimmick to non-engineers."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "canon": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "A modern developer homepage at the level of leerob.com, rauchg.com or brittanychiang.com.",
+    "palette": ["#ffffff", "#0a0a0a", "#737373"],
+    "materials": ["system type", "subtle fades"],
+    "viewport": "Name, short bio, links, then project and writing lists.",
+    "risk": "Looks like those sites by design."
+  },
+  "steer": true,
+  "buildPath": {"value": "code", "toggle": false}
+}

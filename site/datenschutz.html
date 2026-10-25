@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datenschutz · Isa Inalcik</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+  @font-face { font-family: "Hanken Grotesk"; font-weight: 300 700; font-display: swap; src: url(assets/fonts/hanken-grotesk-latin.woff2) format("woff2"); }
+  @font-face { font-family: "Hanken Grotesk"; font-weight: 300 700; font-display: swap; src: url(assets/fonts/hanken-grotesk-latin-ext.woff2) format("woff2"); unicode-range: U+0100-02BA, U+1E00-1E9F; }
+  :root { --paper: #f2f1ed; --ink: #1b1b1a; --ink-2: #4a4a47; --rule: #d3d1ca; --signal: #e2571e; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper: #151514; --ink: #ecebe6; --ink-2: #bdbcb6; --rule: #2f2f2c; --signal: #f06a2f; color-scheme: dark; } }
+  :root[data-theme="dark"] { --paper: #151514; --ink: #ecebe6; --ink-2: #bdbcb6; --rule: #2f2f2c; --signal: #f06a2f; color-scheme: dark; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 "Hanken Grotesk", system-ui, sans-serif; }
+  main { max-width: 42rem; margin: 0 auto; padding: 48px 16px 96px; }
+  .top { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-weight: 600; margin-bottom: 56px; }
+  .top img { width: 28px; height: 28px; }
+  h1 { font-size: clamp(32px, 6vw, 48px); line-height: 1.05; letter-spacing: -.02em; margin: 0 0 12px; font-weight: 600; }
+  h2 { font-size: 20px; margin: 40px 0 8px; padding-top: 20px; border-top: 1px solid var(--rule); font-weight: 600; }
+  p, li { color: var(--ink-2); }
+  ul { padding-left: 20px; }
+  a { color: var(--ink); text-decoration-color: var(--signal); text-underline-offset: 3px; }
+  .en { font-size: 15px; }
+</style>
+</head>
+<body>
+<main>
+  <a class="top" href="./"><img src="assets/logo.svg" width="28" height="28" alt="">Isa Inalcik</a>
+  <h1>Datenschutzerklärung</h1>
+  <p class="en"><i>In short (English): this site sets no cookies, uses no analytics or tracking, and loads nothing from third parties. Only the host, GitHub Pages, processes technical access data.</i></p>
+
+  <h2>Verantwortlicher</h2>
+  <p>Isa Inalcik<br>E-Mail: <span class="mail">hello [at] isainalcik.dev</span></p>
+
+  <h2>Hosting durch GitHub Pages</h2>
+  <p>Diese Website wird bei GitHub Pages gehostet, einem Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Zugriffsdaten, insbesondere die IP-Adresse, Datum und Uhrzeit, die aufgerufene Seite und den Browser (User Agent), um die Seite auszuliefern und die Sicherheit des Dienstes zu gewährleisten. Ich selbst erhalte und speichere diese Daten nicht.</p>
+  <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse liegt in der sicheren und zuverlässigen Bereitstellung der Website. Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework, unter dem GitHub zertifiziert ist. Details: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">GitHub-Datenschutzerklärung</a>.</p>
+
+  <h2>Keine Cookies, kein Tracking</h2>
+  <p>Diese Website setzt keine Cookies und verwendet keine Analyse-, Tracking- oder Werbedienste. Schriften, Bilder und Daten werden von dieser Domain selbst geladen, nicht von Drittanbietern.</p>
+  <p>Wenn Sie das Farbschema (System, Hell, Dunkel) wählen, wird diese Auswahl im lokalen Speicher Ihres Browsers abgelegt. Sie verlässt Ihr Gerät nicht und dient nur dazu, die von Ihnen gewünschte Darstellung beizubehalten (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können sie jederzeit über Ihre Browsereinstellungen löschen.</p>
+
+  <h2>Externe Links</h2>
+  <p>Die Seite verlinkt auf externe Angebote wie LinkedIn, GitHub, Medium und YouTube. Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen; dort gilt dessen Datenschutzerklärung.</p>
+
+  <h2>Kontakt per E-Mail</h2>
+  <p>Wenn Sie mir eine E-Mail schreiben, verwende ich Ihre Angaben nur, um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. f DSGVO), und lösche sie, sobald sie dafür nicht mehr benötigt werden.</p>
+
+  <h2>Ihre Rechte</h2>
+  <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten, auf Datenübertragbarkeit sowie das Recht, der Verarbeitung zu widersprechen (Art. 15 bis 21 DSGVO). Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), zum Beispiel bei der Behörde Ihres Wohnorts.</p>
+
+  <p>Stand: Oktober 2026</p>
+</main>
+<script>
+  // Assemble the address in the browser so scrapers reading the HTML see no plain address.
+  document.querySelectorAll('.mail').forEach(el => {
+    const a = document.createElement('a');
+    a.href = 'mailto:' + ['hello', 'isainalcik.dev'].join('@');
+    a.textContent = ['hello', 'isainalcik.dev'].join('@');
+    el.replaceWith(a);
+  });
+</script>
+</body>
+</html>
